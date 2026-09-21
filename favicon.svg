@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <title>VR Academy</title>
+  <rect width="48" height="48" rx="13" fill="#10142E"/>
+  <g transform="translate(24 24) scale(.86) translate(-24 -24)">
+    <path d="M11 10 L24 33 L37 10" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="24" cy="33" r="5.4" fill="#F2BC35"/>
+  </g>
+</svg>

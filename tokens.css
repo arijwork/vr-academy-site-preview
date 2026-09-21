@@ -1,0 +1,126 @@
+/*
+  VR Academy — v2 BRAND TOKENS  ·  PROPOSAL, not yet canonical
+  ============================================================
+  STATUS: This file is a PROPOSAL produced alongside website/v2/.
+  The canonical brand tokens remain website/brand-tokens.css until the
+  owner promotes this system. Do not point v1 at this file.
+
+  WHY THIS EXISTS
+  WIP.md carries an open decision: the logo palette (royal blue #1f4fb0 +
+  yellow #f4c542) does not match the v1 site palette (charcoal #151210 +
+  amber #f0b429). This file RECONCILES them rather than adding a third
+  option — a deep indigo ink (closer to the logo blue than flat charcoal
+  is) with a gold that sits between #f0b429 and #f4c542.
+
+  Approving v2 therefore closes that open question.
+
+  DESIGNED TO BECOME THE BRAND KIT
+  Every value below is named semantically and grouped so it can be lifted
+  straight into a Canva brand kit / PDF template. Fonts are deliberately
+  chosen to exist BOTH on Google Fonts and in Canva, so the brand carries
+  across web, ad creative and documents with no licensing problem.
+*/
+
+:root {
+  /* ---------- Neutrals / canvas ---------- */
+  --c-canvas:         #FBFAF7; /* page background, warm near-white */
+  --c-surface:        #FFFFFF; /* raised cards on canvas */
+  --c-surface-sunken: #F4F2EC; /* inset wells, alternating bands */
+  --c-hairline:       #E6E2D9; /* thin dividers only */
+  --c-heading:        #10142E; /* headings on light */
+  --c-body:           #3B3F4A; /* body copy */
+  --c-muted:          #6E7385; /* captions, secondary */
+
+  /* ---------- Indigo ramp (the brand colour) ---------- */
+  --c-indigo-950: #080B1F; /* deepest band */
+  --c-indigo-900: #10142E; /* full-bleed dark sections */
+  --c-indigo-800: #171F47; /* elevated surface on dark */
+  --c-indigo-700: #1F2C63; /* elevated surface, second level */
+  --c-indigo-600: #2B4ACB; /* PRIMARY — links, focus, key strokes */
+  --c-indigo-500: #3F5FE0; /* primary hover / brighter accents */
+  --c-indigo-200: #C5D0F7; /* text on dark, dimmed */
+  --c-indigo-100: #E4EAFC; /* tinted fills on light */
+
+  /* ---------- Gold ramp (the rationed accent) ---------- */
+  --c-gold-100: #FDF3D8;
+  --c-gold-400: #F7CF5C;
+  --c-gold-500: #F2BC35; /* THE accent — emphasis, the "5", "free" */
+  --c-gold-600: #D8A11E;
+  --c-gold-700: #A9761A; /* eyebrows and links on light */
+
+  /* ---------- Action (WhatsApp) — RESERVED ----------
+     Rule inherited from brand-tokens.css: this colour marks the ACTION
+     and nothing else. Never decorative. */
+  --c-action:      #25D366;
+  --c-action-deep: #1DA851;
+  --c-action-ink:  #05230F;
+
+  /* ---------- Demo-card tints ----------
+     Soft grounds for the animated demo cards. Low chroma on purpose:
+     they must never compete with the gold accent or the action green. */
+  --tint-blue:  #EDF1FC;
+  --tint-green: #E9F4EC;
+  --tint-peach: #FCF0E6;
+  --tint-lilac: #F0EDFA;
+
+  /* ---------- Type ----------
+     Two display directions are defined; the page selects one via
+     <html data-type="serif"> or <html data-type="sans">.
+     Body is Inter in both. */
+  --font-body:          Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display-serif: Fraunces, "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-display-sans:  Sora, Inter, system-ui, sans-serif;
+  --font-display:       var(--font-display-sans); /* default */
+
+  /* Fluid scale — one source for every heading size */
+  --t-display: clamp(2.75rem, 6.2vw, 5rem);
+  --t-h1:      clamp(2.25rem, 5vw,   3.75rem);
+  --t-h2:      clamp(1.75rem, 3.4vw, 2.75rem);
+  --t-h3:      clamp(1.2rem,  1.9vw, 1.5rem);
+  --t-lead:    clamp(1.05rem, 1.5vw, 1.25rem);
+  --t-body:    1rem;
+  --t-small:   0.875rem;
+  --t-eyebrow: 0.75rem;
+
+  --lh-tight: 1.05;
+  --lh-head:  1.15;
+  --lh-body:  1.6;
+  --ls-tight: -0.02em;
+  --ls-eyebrow: 0.12em;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-6: 24px; --sp-8: 32px; --sp-12: 48px; --sp-16: 64px;
+  --sp-20: 80px; --sp-28: 112px;
+
+  /* ---------- Radii ---------- */
+  --r-sm:   8px;
+  --r-md:   14px;
+  --r-card: 22px;
+  --r-xl:   32px;
+  --r-pill: 999px;
+
+  /* ---------- Elevation ---------- */
+  --sh-card:  0 1px 2px rgba(16,20,46,.04), 0 12px 32px rgba(16,20,46,.07);
+  --sh-lift:  0 2px 4px rgba(16,20,46,.05), 0 20px 48px rgba(16,20,46,.11);
+  --sh-btn:   0 6px 18px rgba(37,211,102,.32);
+  --sh-inset: inset 0 1px 0 rgba(255,255,255,.06);
+
+  /* ---------- Motion ---------- */
+  --ease-out:  cubic-bezier(.22,.61,.36,1);
+  --ease-soft: cubic-bezier(.4,0,.2,1);
+  --dur-fast: 160ms;
+  --dur-mid:  320ms;
+  --dur-slow: 720ms;
+
+  /* ---------- Layout ---------- */
+  --wrap: 1140px;
+  color-scheme: light;
+}
+
+/* Display-face switch — the Phase 1 A/B */
+[data-type="serif"] { --font-display: var(--font-display-serif); }
+[data-type="sans"]  { --font-display: var(--font-display-sans); }
+
+/* Optical tuning: the serif needs slightly tighter leading than the sans */
+[data-type="serif"] { --lh-tight: 1.0; --ls-tight: -0.015em; }

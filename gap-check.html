@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maths Gap Check · VR Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --indigo: #10142E;
+      --gold:   #F2BC35;
+      --wa:     #25d366;
+      --white:  #ffffff;
+      --bg:     #eceae5;
+      --text:   #2a2825;
+      --muted:  #6f6a60;
+      --line:   #e0dbd0;
+      --f:      'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { font-family: var(--f); background: var(--bg); color: var(--text); }
+
+    /* ── SCREEN HEADER ── */
+    .s-header {
+      background: var(--indigo);
+      padding: 18px 24px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .s-header svg { width: 40px; height: 40px; flex-shrink: 0; }
+    .s-header h1 { font-size: 1.2rem; font-weight: 800; color: var(--white); }
+    .s-header .sub { font-size: 0.72rem; color: var(--gold); margin-top: 2px; letter-spacing: 0.05em; }
+
+    /* ── GRADE SELECTOR ── */
+    .s-picker {
+      background: var(--indigo);
+      padding: 0 24px 28px;
+      text-align: center;
+    }
+    .s-picker p { color: rgba(255,255,255,.6); font-size: .85rem; margin-bottom: 14px; }
+    .s-picker .btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .g-btn {
+      background: rgba(255,255,255,.08);
+      border: 2px solid rgba(255,255,255,.22);
+      color: var(--white);
+      font-family: var(--f); font-weight: 700; font-size: .95rem;
+      padding: 10px 22px; border-radius: 100px; cursor: pointer;
+      transition: all .15s;
+    }
+    .g-btn:hover  { border-color: var(--gold); background: rgba(242,188,53,.15); }
+    .g-btn.active { background: var(--gold); border-color: var(--gold); color: var(--indigo); }
+
+    /* ── EMPTY STATE ── */
+    .s-empty {
+      padding: 56px 24px; text-align: center;
+    }
+    .s-empty h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .s-empty p  { font-size: .875rem; color: var(--muted); }
+
+    /* ── GRADE CONTENT WRAPPER ── */
+    .gc { display: none; }
+    .gc.show { display: block; }
+
+    /* ── PDF PAGE SHELL ── */
+    .pages { max-width: 680px; margin: 28px auto; padding: 0 16px; }
+    .page {
+      background: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 2px 14px rgba(0,0,0,.13);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    /* ── COVER ── */
+    .p-cover { background: var(--indigo); padding: 44px 40px 36px; }
+    .cv-label { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .cv-title { font-size: 2.1rem; font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 6px; }
+    .cv-meta  { font-size: .82rem; color: rgba(255,255,255,.55); margin-bottom: 28px; }
+    .cv-rule  { border: none; border-top: 1px solid rgba(242,188,53,.3); margin-bottom: 24px; }
+    .cv-note  {
+      background: rgba(255,255,255,.07);
+      border-left: 3px solid var(--gold);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      font-size: .875rem; color: rgba(255,255,255,.82); line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .cv-brand { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .cv-brand svg { width: 28px; height: 28px; }
+    .cv-brand span { font-size: .8rem; font-weight: 700; letter-spacing: .07em; color: rgba(255,255,255,.6); }
+
+    /* ── QUESTIONS ── */
+    .p-qs { padding: 36px 40px; }
+    .p-head {
+      font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); padding-bottom: 12px; border-bottom: 1.5px solid var(--line); margin-bottom: 22px;
+    }
+    .q { margin-bottom: 24px; }
+    .q:last-child { margin-bottom: 0; }
+    .q-row { display: flex; align-items: flex-start; gap: 10px; }
+    .q-num {
+      background: var(--indigo); color: var(--gold);
+      font-weight: 800; font-size: .72rem;
+      width: 22px; height: 22px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .q-text { font-size: .92rem; line-height: 1.55; color: var(--text); }
+    .q-line { margin: 6px 0 0 32px; height: 30px; border-bottom: 1px dashed var(--line); }
+
+    /* ── ANSWERS + GAP MAP ── */
+    .p-ans { padding: 36px 40px; }
+    .ak { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 24px; margin-bottom: 28px; }
+    .ak-item { font-size: .85rem; line-height: 1.5; }
+    .ak-n { font-weight: 700; color: var(--indigo); margin-right: 3px; }
+    .gm-head {
+      font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); padding-bottom: 10px; border-bottom: 1.5px solid var(--line); margin-bottom: 12px;
+    }
+    .gm { width: 100%; border-collapse: collapse; font-size: .78rem; margin-bottom: 24px; }
+    .gm th { background: var(--indigo); color: var(--white); text-align: left; padding: 7px 10px; font-size: .68rem; letter-spacing: .04em; }
+    .gm td { padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.4; }
+    .gm tr:nth-child(even) td { background: #f9f8f5; }
+    .gm td:first-child { font-weight: 700; color: var(--indigo); width: 26px; text-align: center; }
+    .sg {
+      background: #f8f6f1; border: 1px solid var(--line); border-radius: 6px; padding: 14px 18px;
+    }
+    .sg-title { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .sg p { font-size: .82rem; line-height: 1.6; margin-bottom: 4px; }
+    .sg p:last-child { margin-bottom: 0; }
+    .sg b { color: var(--indigo); }
+
+    /* ── CTA PAGE ── */
+    .p-cta { background: var(--indigo); padding: 44px 40px; }
+    .cta-h { font-size: 1.55rem; font-weight: 800; color: var(--white); line-height: 1.25; margin-bottom: 14px; }
+    .cta-h span { color: var(--gold); }
+    .cta-body { font-size: .875rem; color: rgba(255,255,255,.78); line-height: 1.7; margin-bottom: 24px; }
+    .cta-steps { list-style: none; margin-bottom: 24px; }
+    .cta-steps li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; font-size: .875rem; color: rgba(255,255,255,.85); }
+    .cta-sn {
+      background: var(--gold); color: var(--indigo);
+      font-weight: 800; font-size: .72rem;
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+    }
+    .cta-gap { font-size: .78rem; color: rgba(255,255,255,.5); margin-bottom: 14px; }
+    .cta-wa {
+      display: inline-block; background: var(--wa); color: #05230f;
+      font-weight: 700; font-size: .88rem; padding: 12px 22px;
+      border-radius: 8px; text-decoration: none; margin-bottom: 10px;
+    }
+    .cta-url { font-size: .78rem; color: rgba(255,255,255,.45); }
+
+    /* ── ACTION BAR (screen) ── */
+    .s-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--white); border-top: 1px solid var(--line);
+      padding: 12px 20px; align-items: center; justify-content: space-between; gap: 16px;
+      box-shadow: 0 -4px 16px rgba(0,0,0,.09);
+    }
+    .s-bar.show { display: flex; }
+    body.grade-active { padding-bottom: 68px; }
+    .dl-btn {
+      background: var(--indigo); color: var(--white);
+      font-family: var(--f); font-weight: 700; font-size: .88rem;
+      padding: 11px 22px; border-radius: 8px; border: none; cursor: pointer; white-space: nowrap;
+    }
+    .dl-btn:hover { background: #1c2246; }
+    .wa-nudge { font-size: .78rem; color: var(--muted); line-height: 1.4; }
+    .wa-nudge a { color: var(--indigo); font-weight: 600; }
+
+    /* ── PRINT ── */
+    @media print {
+      @page { size: A4 portrait; margin: 14mm 18mm; }
+
+      body, .gc, .pages { display: block !important; background: white; }
+      .s-header, .s-picker, .s-empty, .s-bar { display: none !important; }
+
+      .gc        { display: none !important; }
+      .gc.print  { display: block !important; }
+
+      .pages { max-width: 100%; margin: 0; padding: 0; }
+      .page  { box-shadow: none; border-radius: 0; margin-bottom: 0; page-break-after: always; }
+      .page:last-child { page-break-after: avoid; }
+
+      .p-cover, .p-cta, .gm th, .q-num, .cta-wa {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Logo inline SVG macro (reused) -->
+<template id="logo-tpl">
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/>
+    <g transform="translate(24 24) scale(.86) translate(-24 -24)">
+      <path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="24" cy="33" r="5.4" fill="#F2BC35"/>
+    </g>
+  </svg>
+</template>
+
+<!-- HEADER -->
+<header class="s-header">
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <rect width="48" height="48" rx="13" fill="#10142E"/>
+    <g transform="translate(24 24) scale(.86) translate(-24 -24)">
+      <path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="24" cy="33" r="5.4" fill="#F2BC35"/>
+    </g>
+  </svg>
+  <div>
+    <h1>Maths Gap Check</h1>
+    <div class="sub">VR Academy · CBSE Grades 6–10</div>
+  </div>
+</header>
+
+<!-- GRADE PICKER -->
+<div class="s-picker">
+  <p>Select your child's grade</p>
+  <div class="btns">
+    <button class="g-btn" onclick="pick(6)">Grade 6</button>
+    <button class="g-btn" onclick="pick(7)">Grade 7</button>
+    <button class="g-btn" onclick="pick(8)">Grade 8</button>
+    <button class="g-btn" onclick="pick(9)">Grade 9</button>
+    <button class="g-btn" onclick="pick(10)">Grade 10</button>
+  </div>
+</div>
+
+<div class="s-empty" id="empty">
+  <h2>Ten questions. Ten minutes. No calculator.</h2>
+  <p>Print the sheet for your child's grade, let them try it alone, then check together using the Gap Map on page 3.</p>
+</div>
+
+<!-- ═══════════════ GRADE 6 ═══════════════ -->
+<div class="gc" id="gc6">
+<div class="pages">
+
+  <div class="page p-cover">
+    <div class="cv-label">CBSE · Grade 6</div>
+    <div class="cv-title">Maths Gap Check</div>
+    <div class="cv-meta">10 questions &nbsp;·&nbsp; 10 minutes &nbsp;·&nbsp; no calculator</div>
+    <hr class="cv-rule">
+    <div class="cv-note">For parents: let your child try these alone, with no phone and no calculator. Ten minutes is enough. Then check them together using the Gap Map on page 3. A wrong answer here is useful information, not a verdict.</div>
+    <div class="cv-brand">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+  <div class="page p-qs">
+    <div class="p-head">Grade 6 — Questions</div>
+    <div class="q"><div class="q-row"><span class="q-num">1</span><span class="q-text">Write in figures: three lakh five thousand twenty.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">2</span><span class="q-text">4.7 + 0.35 = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">3</span><span class="q-text">What is ¾ of 48?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">4</span><span class="q-text">Using 4, 0, 7, 2 and 9 once each, write the smallest 5-digit number.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">5</span><span class="q-text">Find the HCF of 18 and 24.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">6</span><span class="q-text">(−7) + 4 = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">7</span><span class="q-text">Which is greater: 3/5 or 5/8?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">8</span><span class="q-text">A number is divisible by both 2 and 3. Must it be divisible by 6? Why?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">9</span><span class="q-text">Estimate 4,867 + 3,142 by rounding each to the nearest hundred.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">10</span><span class="q-text">At night the temperature was −3 °C. By noon it had risen 8 °C. What was it at noon?</span></div><div class="q-line"></div></div>
+  </div>
+
+  <div class="page p-ans">
+    <div class="p-head">Grade 6 — Answers &amp; Gap Map</div>
+    <div class="ak">
+      <div class="ak-item"><span class="ak-n">1.</span> 3,05,020</div>
+      <div class="ak-item"><span class="ak-n">2.</span> 5.05</div>
+      <div class="ak-item"><span class="ak-n">3.</span> 36</div>
+      <div class="ak-item"><span class="ak-n">4.</span> 20,479</div>
+      <div class="ak-item"><span class="ak-n">5.</span> 6</div>
+      <div class="ak-item"><span class="ak-n">6.</span> −3</div>
+      <div class="ak-item"><span class="ak-n">7.</span> 5/8 &nbsp;(25/40 &gt; 24/40)</div>
+      <div class="ak-item"><span class="ak-n">8.</span> Yes — 2 and 3 share no common factor, so 6 divides it</div>
+      <div class="ak-item"><span class="ak-n">9.</span> 4,900 + 3,100 = 8,000</div>
+      <div class="ak-item"><span class="ak-n">10.</span> 5 °C</div>
+    </div>
+    <div class="gm-head">Gap Map</div>
+    <table class="gm">
+      <thead><tr><th>Q</th><th>Topic</th><th>From</th><th>If wrong, the gap is …</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Place value, Indian system</td><td>Grade 5</td><td>Reading and writing large numbers</td></tr>
+        <tr><td>2</td><td>Adding decimals</td><td>Grade 5</td><td>Lining up the decimal point</td></tr>
+        <tr><td>3</td><td>Fraction of a quantity</td><td>Grade 5</td><td>Using a fraction as an operator</td></tr>
+        <tr><td>4</td><td>Forming numbers</td><td>Grade 6</td><td>Place value — 0 cannot lead</td></tr>
+        <tr><td>5</td><td>HCF</td><td>Grade 6</td><td>Factors and multiples</td></tr>
+        <tr><td>6</td><td>Adding integers</td><td>Grade 6</td><td>Direction on the number line</td></tr>
+        <tr><td>7</td><td>Comparing fractions</td><td>Grade 6</td><td>Common denominators</td></tr>
+        <tr><td>8</td><td>Divisibility reasoning</td><td>Grade 6</td><td>Explaining, not just computing</td></tr>
+        <tr><td>9</td><td>Estimation</td><td>Grade 6</td><td>Rounding before adding</td></tr>
+        <tr><td>10</td><td>Integers in context</td><td>Grade 6</td><td>Turning a word problem into a sum</td></tr>
+      </tbody>
+    </table>
+    <div class="sg">
+      <div class="sg-title">Score Guide</div>
+      <p><b>0–1 wrong</b> — Secure for this stage.</p>
+      <p><b>2–4 wrong</b> — One or two gaps forming. This is the normal case.</p>
+      <p><b>Any of Q1–3 wrong</b> — The gap started in an earlier year. This is the most common reason marks slip later, and it is the easiest kind to fix once you know which topic it is.</p>
+    </div>
+  </div>
+
+  <div class="page p-cta">
+    <div class="cta-h">Found a gap?<br><span>That's the useful part.</span></div>
+    <div class="cta-body">Most children have one. It is hard to spot in a class of forty, and straightforward to fix once it has a name.<br><br>In a free trial class we start from the exact question your child got stuck on. Five students per class, evenings Saudi time, Grades 6–10.</div>
+    <ol class="cta-steps">
+      <li><span class="cta-sn">1</span> Message us on WhatsApp</li>
+      <li><span class="cta-sn">2</span> Pick an evening</li>
+      <li><span class="cta-sn">3</span> Your child sits a real class</li>
+    </ol>
+    <p class="cta-gap">Afterwards we send you a short note: the one gap we found, and what four weeks on it would look like.</p>
+    <a class="cta-wa" href="https://wa.me/919220664662">Message VR Academy on WhatsApp</a>
+    <div class="cta-url">wa.me/919220664662</div>
+    <div class="cv-brand" style="margin-top:28px;">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+</div>
+</div><!-- /gc6 -->
+
+<!-- ═══════════════ GRADE 7 ═══════════════ -->
+<div class="gc" id="gc7">
+<div class="pages">
+
+  <div class="page p-cover">
+    <div class="cv-label">CBSE · Grade 7</div>
+    <div class="cv-title">Maths Gap Check</div>
+    <div class="cv-meta">10 questions &nbsp;·&nbsp; 10 minutes &nbsp;·&nbsp; no calculator</div>
+    <hr class="cv-rule">
+    <div class="cv-note">For parents: let your child try these alone, with no phone and no calculator. Ten minutes is enough. Then check them together using the Gap Map on page 3. A wrong answer here is useful information, not a verdict.</div>
+    <div class="cv-brand">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+  <div class="page p-qs">
+    <div class="p-head">Grade 7 — Questions</div>
+    <div class="q"><div class="q-row"><span class="q-num">1</span><span class="q-text">(−8) + 3 = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">2</span><span class="q-text">3/4 + 1/6 = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">3</span><span class="q-text">Find the HCF of 24 and 36.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">4</span><span class="q-text">(−3) × (−4) = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">5</span><span class="q-text">Solve: 3x + 5 = 20</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">6</span><span class="q-text">Two angles of a triangle are 55° and 65°. Find the third.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">7</span><span class="q-text">2/3 ÷ 4/9 = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">8</span><span class="q-text">Find the mean of 4, 8, 10, 6, 12.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">9</span><span class="q-text">A shirt costs SAR 80 after a 20% discount. What was the original price?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">10</span><span class="q-text">(−2) × 3 + (−4) ÷ 2 = ?</span></div><div class="q-line"></div></div>
+  </div>
+
+  <div class="page p-ans">
+    <div class="p-head">Grade 7 — Answers &amp; Gap Map</div>
+    <div class="ak">
+      <div class="ak-item"><span class="ak-n">1.</span> −5</div>
+      <div class="ak-item"><span class="ak-n">2.</span> 11/12</div>
+      <div class="ak-item"><span class="ak-n">3.</span> 12</div>
+      <div class="ak-item"><span class="ak-n">4.</span> 12</div>
+      <div class="ak-item"><span class="ak-n">5.</span> x = 5</div>
+      <div class="ak-item"><span class="ak-n">6.</span> 60°</div>
+      <div class="ak-item"><span class="ak-n">7.</span> 3/2</div>
+      <div class="ak-item"><span class="ak-n">8.</span> 8</div>
+      <div class="ak-item"><span class="ak-n">9.</span> SAR 100</div>
+      <div class="ak-item"><span class="ak-n">10.</span> −8</div>
+    </div>
+    <div class="gm-head">Gap Map</div>
+    <table class="gm">
+      <thead><tr><th>Q</th><th>Topic</th><th>From</th><th>If wrong, the gap is …</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Adding integers</td><td>Grade 6</td><td>Signs on the number line</td></tr>
+        <tr><td>2</td><td>Adding unlike fractions</td><td>Grade 6</td><td>LCM of denominators</td></tr>
+        <tr><td>3</td><td>HCF</td><td>Grade 6</td><td>Factors</td></tr>
+        <tr><td>4</td><td>Multiplying integers</td><td>Grade 7</td><td>The sign rule — this one carries furthest</td></tr>
+        <tr><td>5</td><td>Simple equations</td><td>Grade 7</td><td>Doing the same thing to both sides</td></tr>
+        <tr><td>6</td><td>Angle sum of a triangle</td><td>Grade 7</td><td>Using the 180° property</td></tr>
+        <tr><td>7</td><td>Dividing fractions</td><td>Grade 7</td><td>Multiplying by the reciprocal</td></tr>
+        <tr><td>8</td><td>Mean</td><td>Grade 7</td><td>Total ÷ count</td></tr>
+        <tr><td>9</td><td>Percentage, working backwards</td><td>Grade 7</td><td>80% of what = 80</td></tr>
+        <tr><td>10</td><td>Order of operations with integers</td><td>Grade 7</td><td>BODMAS together with signs</td></tr>
+      </tbody>
+    </table>
+    <div class="sg">
+      <div class="sg-title">Score Guide</div>
+      <p><b>0–1 wrong</b> — Secure for this stage.</p>
+      <p><b>2–4 wrong</b> — One or two gaps forming. This is the normal case.</p>
+      <p><b>Any of Q1–3 wrong</b> — The gap started in an earlier year. This is the most common reason marks slip later, and it is the easiest kind to fix once you know which topic it is.</p>
+    </div>
+  </div>
+
+  <div class="page p-cta">
+    <div class="cta-h">Found a gap?<br><span>That's the useful part.</span></div>
+    <div class="cta-body">Most children have one. It is hard to spot in a class of forty, and straightforward to fix once it has a name.<br><br>In a free trial class we start from the exact question your child got stuck on. Five students per class, evenings Saudi time, Grades 6–10.</div>
+    <ol class="cta-steps">
+      <li><span class="cta-sn">1</span> Message us on WhatsApp</li>
+      <li><span class="cta-sn">2</span> Pick an evening</li>
+      <li><span class="cta-sn">3</span> Your child sits a real class</li>
+    </ol>
+    <p class="cta-gap">Afterwards we send you a short note: the one gap we found, and what four weeks on it would look like.</p>
+    <a class="cta-wa" href="https://wa.me/919220664662">Message VR Academy on WhatsApp</a>
+    <div class="cta-url">wa.me/919220664662</div>
+    <div class="cv-brand" style="margin-top:28px;">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+</div>
+</div><!-- /gc7 -->
+
+<!-- ═══════════════ GRADE 8 ═══════════════ -->
+<div class="gc" id="gc8">
+<div class="pages">
+
+  <div class="page p-cover">
+    <div class="cv-label">CBSE · Grade 8</div>
+    <div class="cv-title">Maths Gap Check</div>
+    <div class="cv-meta">10 questions &nbsp;·&nbsp; 10 minutes &nbsp;·&nbsp; no calculator</div>
+    <hr class="cv-rule">
+    <div class="cv-note">For parents: let your child try these alone, with no phone and no calculator. Ten minutes is enough. Then check them together using the Gap Map on page 3. A wrong answer here is useful information, not a verdict.</div>
+    <div class="cv-brand">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+  <div class="page p-qs">
+    <div class="p-head">Grade 8 — Questions</div>
+    <div class="q"><div class="q-row"><span class="q-num">1</span><span class="q-text">(−3) × (−4) − 2 × (−5) = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">2</span><span class="q-text">Solve: 3x + 5 = 20</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">3</span><span class="q-text">What is 2/5 of 60?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">4</span><span class="q-text">Solve: 2(x − 3) = x + 4</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">5</span><span class="q-text">Expand: (a + b)²</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">6</span><span class="q-text">√144 + √25 = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">7</span><span class="q-text">Write 2⁻³ as a fraction.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">8</span><span class="q-text">Expand: (x + 5)(x − 3)</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">9</span><span class="q-text">Find 15% of 240.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">10</span><span class="q-text">A square has area 169 cm². Find its perimeter.</span></div><div class="q-line"></div></div>
+  </div>
+
+  <div class="page p-ans">
+    <div class="p-head">Grade 8 — Answers &amp; Gap Map</div>
+    <div class="ak">
+      <div class="ak-item"><span class="ak-n">1.</span> 22</div>
+      <div class="ak-item"><span class="ak-n">2.</span> x = 5</div>
+      <div class="ak-item"><span class="ak-n">3.</span> 24</div>
+      <div class="ak-item"><span class="ak-n">4.</span> x = 10</div>
+      <div class="ak-item"><span class="ak-n">5.</span> a² + 2ab + b²</div>
+      <div class="ak-item"><span class="ak-n">6.</span> 17</div>
+      <div class="ak-item"><span class="ak-n">7.</span> 1/8</div>
+      <div class="ak-item"><span class="ak-n">8.</span> x² + 2x − 15</div>
+      <div class="ak-item"><span class="ak-n">9.</span> 36</div>
+      <div class="ak-item"><span class="ak-n">10.</span> 52 cm</div>
+    </div>
+    <div class="gm-head">Gap Map</div>
+    <table class="gm">
+      <thead><tr><th>Q</th><th>Topic</th><th>From</th><th>If wrong, the gap is …</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Integers with BODMAS</td><td>Grade 7</td><td>Sign rules — the most common carried-over gap</td></tr>
+        <tr><td>2</td><td>Simple equations</td><td>Grade 7</td><td>Balancing an equation</td></tr>
+        <tr><td>3</td><td>Fraction of a quantity</td><td>Grade 6</td><td>Fraction as an operator</td></tr>
+        <tr><td>4</td><td>Linear equations, brackets</td><td>Grade 8</td><td>Distributing, then collecting terms</td></tr>
+        <tr><td>5</td><td>Identities</td><td>Grade 8</td><td>Knowing (a+b)² ≠ a² + b²</td></tr>
+        <tr><td>6</td><td>Square roots</td><td>Grade 8</td><td>Recognising perfect squares</td></tr>
+        <tr><td>7</td><td>Negative exponents</td><td>Grade 8</td><td>What a negative power means</td></tr>
+        <tr><td>8</td><td>Multiplying binomials</td><td>Grade 8</td><td>Every term times every term</td></tr>
+        <tr><td>9</td><td>Percentages</td><td>Grade 7</td><td>Percent as a fraction of a number</td></tr>
+        <tr><td>10</td><td>Mensuration</td><td>Grade 8</td><td>Area → side → perimeter</td></tr>
+      </tbody>
+    </table>
+    <div class="sg">
+      <div class="sg-title">Score Guide</div>
+      <p><b>0–1 wrong</b> — Secure for this stage.</p>
+      <p><b>2–4 wrong</b> — One or two gaps forming. This is the normal case.</p>
+      <p><b>Any of Q1–3 wrong</b> — The gap started in an earlier year. This is the most common reason marks slip later, and it is the easiest kind to fix once you know which topic it is.</p>
+    </div>
+  </div>
+
+  <div class="page p-cta">
+    <div class="cta-h">Found a gap?<br><span>That's the useful part.</span></div>
+    <div class="cta-body">Most children have one. It is hard to spot in a class of forty, and straightforward to fix once it has a name.<br><br>In a free trial class we start from the exact question your child got stuck on. Five students per class, evenings Saudi time, Grades 6–10.</div>
+    <ol class="cta-steps">
+      <li><span class="cta-sn">1</span> Message us on WhatsApp</li>
+      <li><span class="cta-sn">2</span> Pick an evening</li>
+      <li><span class="cta-sn">3</span> Your child sits a real class</li>
+    </ol>
+    <p class="cta-gap">Afterwards we send you a short note: the one gap we found, and what four weeks on it would look like.</p>
+    <a class="cta-wa" href="https://wa.me/919220664662">Message VR Academy on WhatsApp</a>
+    <div class="cta-url">wa.me/919220664662</div>
+    <div class="cv-brand" style="margin-top:28px;">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+</div>
+</div><!-- /gc8 -->
+
+<!-- ═══════════════ GRADE 9 ═══════════════ -->
+<div class="gc" id="gc9">
+<div class="pages">
+
+  <div class="page p-cover">
+    <div class="cv-label">CBSE · Grade 9</div>
+    <div class="cv-title">Maths Gap Check</div>
+    <div class="cv-meta">10 questions &nbsp;·&nbsp; 10 minutes &nbsp;·&nbsp; no calculator</div>
+    <hr class="cv-rule">
+    <div class="cv-note">For parents: let your child try these alone, with no phone and no calculator. Ten minutes is enough. Then check them together using the Gap Map on page 3. A wrong answer here is useful information, not a verdict.</div>
+    <div class="cv-brand">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+  <div class="page p-qs">
+    <div class="p-head">Grade 9 — Questions</div>
+    <div class="q"><div class="q-row"><span class="q-num">1</span><span class="q-text">(−5) × (−3) + (−2) = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">2</span><span class="q-text">Expand: (x + 4)²</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">3</span><span class="q-text">Solve: 5x − 7 = 3x + 9</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">4</span><span class="q-text">Factorise: x² − 9</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">5</span><span class="q-text">If p(x) = x² − 3x + 2, find p(2).</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">6</span><span class="q-text">Is √2 rational or irrational? Give one line of reasoning.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">7</span><span class="q-text">Factorise: x² + 7x + 12</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">8</span><span class="q-text">Factorise: 4x² − 12x + 9</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">9</span><span class="q-text">Find the area of a triangle with sides 5 cm, 12 cm and 13 cm.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">10</span><span class="q-text">In which quadrant does the point (−3, 5) lie?</span></div><div class="q-line"></div></div>
+  </div>
+
+  <div class="page p-ans">
+    <div class="p-head">Grade 9 — Answers &amp; Gap Map</div>
+    <div class="ak">
+      <div class="ak-item"><span class="ak-n">1.</span> 13</div>
+      <div class="ak-item"><span class="ak-n">2.</span> x² + 8x + 16</div>
+      <div class="ak-item"><span class="ak-n">3.</span> x = 8</div>
+      <div class="ak-item"><span class="ak-n">4.</span> (x − 3)(x + 3)</div>
+      <div class="ak-item"><span class="ak-n">5.</span> 0</div>
+      <div class="ak-item"><span class="ak-n">6.</span> Irrational — cannot be written as p/q</div>
+      <div class="ak-item"><span class="ak-n">7.</span> (x + 3)(x + 4)</div>
+      <div class="ak-item"><span class="ak-n">8.</span> (2x − 3)²</div>
+      <div class="ak-item"><span class="ak-n">9.</span> 30 cm² (5-12-13 right triangle, ½ × 5 × 12)</div>
+      <div class="ak-item"><span class="ak-n">10.</span> Second quadrant</div>
+    </div>
+    <div class="gm-head">Gap Map</div>
+    <table class="gm">
+      <thead><tr><th>Q</th><th>Topic</th><th>From</th><th>If wrong, the gap is …</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Integers with BODMAS</td><td>Grade 7</td><td>Sign rules — still the top carried-over gap at this stage</td></tr>
+        <tr><td>2</td><td>Identity (a+b)²</td><td>Grade 8</td><td>Expanding a square</td></tr>
+        <tr><td>3</td><td>Linear equations, variable both sides</td><td>Grade 8</td><td>Collecting like terms</td></tr>
+        <tr><td>4</td><td>Difference of squares</td><td>Grade 9</td><td>Spotting a² − b²</td></tr>
+        <tr><td>5</td><td>Value of a polynomial</td><td>Grade 9</td><td>Substitution</td></tr>
+        <tr><td>6</td><td>Irrational numbers</td><td>Grade 9</td><td>Explaining, not just labelling</td></tr>
+        <tr><td>7</td><td>Factorising a trinomial</td><td>Grade 9</td><td>Splitting the middle term</td></tr>
+        <tr><td>8</td><td>Perfect-square trinomial</td><td>Grade 9</td><td>Recognising the pattern</td></tr>
+        <tr><td>9</td><td>Area, right triangle</td><td>Grade 9</td><td>Spotting 5-12-13 before reaching for a formula</td></tr>
+        <tr><td>10</td><td>Coordinate geometry</td><td>Grade 9</td><td>Signs of x and y in each quadrant</td></tr>
+      </tbody>
+    </table>
+    <div class="sg">
+      <div class="sg-title">Score Guide</div>
+      <p><b>0–1 wrong</b> — Secure for this stage.</p>
+      <p><b>2–4 wrong</b> — One or two gaps forming. This is the normal case.</p>
+      <p><b>Any of Q1–3 wrong</b> — The gap started in an earlier year. This is the most common reason marks slip later, and it is the easiest kind to fix once you know which topic it is.</p>
+    </div>
+  </div>
+
+  <div class="page p-cta">
+    <div class="cta-h">Found a gap?<br><span>That's the useful part.</span></div>
+    <div class="cta-body">Most children have one. It is hard to spot in a class of forty, and straightforward to fix once it has a name.<br><br>In a free trial class we start from the exact question your child got stuck on. Five students per class, evenings Saudi time, Grades 6–10.</div>
+    <ol class="cta-steps">
+      <li><span class="cta-sn">1</span> Message us on WhatsApp</li>
+      <li><span class="cta-sn">2</span> Pick an evening</li>
+      <li><span class="cta-sn">3</span> Your child sits a real class</li>
+    </ol>
+    <p class="cta-gap">Afterwards we send you a short note: the one gap we found, and what four weeks on it would look like.</p>
+    <a class="cta-wa" href="https://wa.me/919220664662">Message VR Academy on WhatsApp</a>
+    <div class="cta-url">wa.me/919220664662</div>
+    <div class="cv-brand" style="margin-top:28px;">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+</div>
+</div><!-- /gc9 -->
+
+<!-- ═══════════════ GRADE 10 ═══════════════ -->
+<div class="gc" id="gc10">
+<div class="pages">
+
+  <div class="page p-cover">
+    <div class="cv-label">CBSE · Grade 10</div>
+    <div class="cv-title">Maths Gap Check</div>
+    <div class="cv-meta">10 questions &nbsp;·&nbsp; 10 minutes &nbsp;·&nbsp; no calculator</div>
+    <hr class="cv-rule">
+    <div class="cv-note">For parents: let your child try these alone, with no phone and no calculator. Ten minutes is enough. Then check them together using the Gap Map on page 3. A wrong answer here is useful information, not a verdict.</div>
+    <div class="cv-brand">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+  <div class="page p-qs">
+    <div class="p-head">Grade 10 — Questions</div>
+    <div class="q"><div class="q-row"><span class="q-num">1</span><span class="q-text">Factorise: x² − 5x + 6</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">2</span><span class="q-text">Solve: 2(x − 4) = 3x − 11</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">3</span><span class="q-text">Expand: (a − b)²</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">4</span><span class="q-text">Find the roots: x² − 7x + 12 = 0</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">5</span><span class="q-text">Find the discriminant of 2x² − 4x + 1 = 0.</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">6</span><span class="q-text">Find the 10th term of the AP: 3, 7, 11, …</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">7</span><span class="q-text">sin 30° + cos 60° = ?</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">8</span><span class="q-text">Find the sum of the first 20 terms of the AP: 5, 8, 11, …</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">9</span><span class="q-text">Find the distance between (2, 3) and (6, 6).</span></div><div class="q-line"></div></div>
+    <div class="q"><div class="q-row"><span class="q-num">10</span><span class="q-text">If sin θ = 3/5 and θ is acute, find cos θ.</span></div><div class="q-line"></div></div>
+  </div>
+
+  <div class="page p-ans">
+    <div class="p-head">Grade 10 — Answers &amp; Gap Map</div>
+    <div class="ak">
+      <div class="ak-item"><span class="ak-n">1.</span> (x − 2)(x − 3)</div>
+      <div class="ak-item"><span class="ak-n">2.</span> x = 3</div>
+      <div class="ak-item"><span class="ak-n">3.</span> a² − 2ab + b²</div>
+      <div class="ak-item"><span class="ak-n">4.</span> x = 3, x = 4</div>
+      <div class="ak-item"><span class="ak-n">5.</span> 8</div>
+      <div class="ak-item"><span class="ak-n">6.</span> 39</div>
+      <div class="ak-item"><span class="ak-n">7.</span> 1</div>
+      <div class="ak-item"><span class="ak-n">8.</span> 670</div>
+      <div class="ak-item"><span class="ak-n">9.</span> 5</div>
+      <div class="ak-item"><span class="ak-n">10.</span> 4/5</div>
+    </div>
+    <div class="gm-head">Gap Map</div>
+    <table class="gm">
+      <thead><tr><th>Q</th><th>Topic</th><th>From</th><th>If wrong, the gap is …</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Factorising a trinomial</td><td>Grade 9</td><td>Splitting the middle term — blocks the whole quadratics chapter</td></tr>
+        <tr><td>2</td><td>Linear equations</td><td>Grade 8</td><td>Brackets and signs</td></tr>
+        <tr><td>3</td><td>Identity (a−b)²</td><td>Grade 8</td><td>The middle term's sign</td></tr>
+        <tr><td>4</td><td>Quadratic equations</td><td>Grade 10</td><td>Factorisation method</td></tr>
+        <tr><td>5</td><td>Discriminant</td><td>Grade 10</td><td>b² − 4ac, and what it tells you</td></tr>
+        <tr><td>6</td><td>AP, nth term</td><td>Grade 10</td><td>a + (n−1)d</td></tr>
+        <tr><td>7</td><td>Trigonometric ratios</td><td>Grade 10</td><td>Standard-angle values</td></tr>
+        <tr><td>8</td><td>AP, sum of n terms</td><td>Grade 10</td><td>Choosing the right formula</td></tr>
+        <tr><td>9</td><td>Distance formula</td><td>Grade 10</td><td>Applying it without sign slips</td></tr>
+        <tr><td>10</td><td>Trigonometric identity</td><td>Grade 10</td><td>sin²θ + cos²θ = 1</td></tr>
+      </tbody>
+    </table>
+    <div class="sg">
+      <div class="sg-title">Score Guide</div>
+      <p><b>0–1 wrong</b> — Secure for this stage.</p>
+      <p><b>2–4 wrong</b> — One or two gaps forming. This is the normal case.</p>
+      <p><b>Any of Q1–3 wrong</b> — The gap started in an earlier year. This is the most common reason marks slip later, and it is the easiest kind to fix once you know which topic it is.</p>
+    </div>
+  </div>
+
+  <div class="page p-cta">
+    <div class="cta-h">Found a gap?<br><span>That's the useful part.</span></div>
+    <div class="cta-body">Most children have one. It is hard to spot in a class of forty, and straightforward to fix once it has a name.<br><br>In a free trial class we start from the exact question your child got stuck on. Five students per class, evenings Saudi time, Grades 6–10.</div>
+    <ol class="cta-steps">
+      <li><span class="cta-sn">1</span> Message us on WhatsApp</li>
+      <li><span class="cta-sn">2</span> Pick an evening</li>
+      <li><span class="cta-sn">3</span> Your child sits a real class</li>
+    </ol>
+    <p class="cta-gap">Afterwards we send you a short note: the one gap we found, and what four weeks on it would look like.</p>
+    <a class="cta-wa" href="https://wa.me/919220664662">Message VR Academy on WhatsApp</a>
+    <div class="cta-url">wa.me/919220664662</div>
+    <div class="cv-brand" style="margin-top:28px;">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="rgba(255,255,255,.12)"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+      <span>VR ACADEMY</span>
+    </div>
+  </div>
+
+</div>
+</div><!-- /gc10 -->
+
+<!-- ACTION BAR -->
+<div class="s-bar" id="s-bar">
+  <button class="dl-btn" id="dl-btn" onclick="dlPDF()">Download PDF</button>
+  <div class="wa-nudge">Found a gap? <a href="https://wa.me/919220664662">Book a free trial →</a></div>
+</div>
+
+<script>
+  var cur = null;
+
+  function pick(g) {
+    if (cur) {
+      document.getElementById('gc' + cur).classList.remove('show');
+      document.querySelector('.g-btn[onclick="pick(' + cur + ')"]').classList.remove('active');
+    }
+    cur = g;
+    document.getElementById('gc' + g).classList.add('show');
+    document.querySelector('.g-btn[onclick="pick(' + g + ')"]').classList.add('active');
+    document.getElementById('empty').style.display = 'none';
+    document.getElementById('dl-btn').textContent = 'Download Grade ' + g + ' PDF';
+    document.getElementById('s-bar').classList.add('show');
+    document.body.classList.add('grade-active');
+    document.getElementById('gc' + g).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function dlPDF() {
+    if (!cur) return;
+    // Mark the grade we're printing so @media print CSS can isolate it
+    document.body.setAttribute('data-pg', cur);
+    // Temporarily give that gc the print class
+    document.querySelectorAll('.gc').forEach(function(el) { el.classList.remove('print'); });
+    document.getElementById('gc' + cur).classList.add('print');
+    window.print();
+    setTimeout(function() {
+      document.getElementById('gc' + cur).classList.remove('print');
+      document.body.removeAttribute('data-pg');
+    }, 500);
+  }
+</script>
+</body>
+</html>

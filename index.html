@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en" data-type="serif">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- REVIEW BUILD: noindex keeps this out of Google while the page is
+     shared for review. Remove this tag (and robots.txt) at launch. -->
+<!--
+  VR Academy Global — landing page v2, FINAL (was "Version C", index-c.html)
+  =========================================================================
+  The chosen page. Built from Version B (index-b.html); A and B are kept
+  untouched so all three can still be compared side by side (versions.html).
+
+  What C changes from B:
+    · Company name is "VR Academy Global" (header lockup, footer, title,
+      comparison, sample WhatsApp note).
+    · The boards — CBSE, IGCSE, IB — get their own typographic moment right
+      under the hero, plus board chips in the hero itself. Display only: no
+      picker, no board-specific copy.
+    · The batch meter plays itself (40 → 30 → 20 → 10 → 5, holds on 5,
+      repeats). Parents did not read B's slider as draggable. Tapping a
+      number holds it; autoplay resumes after a pause.
+
+  Unchanged guards: no fees, no class duration or frequency, no tutor
+  credentials, no results or testimonials. Search "PLACEHOLDER" before launch.
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VR Academy Global — find the gap, fix it, five students at a time</title>
+<meta name="description" content="Live online CBSE, IGCSE and IB coaching for Grades 6 to 10. Five students, one tutor, a personalized learning journey, a weekly test and a weekly progress note on WhatsApp.">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2314853815972392');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2314853815972392&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<link rel="icon" href="favicon.svg">
+<!-- Fonts are hosted with the page (fonts/), not fetched from Google: one less
+     server to wait for before anything can be drawn. Latin subset only, which
+     is all this English page uses. Both fonts are SIL Open Font License. -->
+<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Fraunces;font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/fraunces-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:Inter;font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/inter-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{margin:0;background:var(--c-canvas);color:var(--c-body);font-family:var(--font-body);
+       font-size:var(--t-body);line-height:var(--lh-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--font-display);color:var(--c-heading);line-height:var(--lh-head);
+           letter-spacing:var(--ls-tight);margin:0;font-weight:700}
+  p{margin:0}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--sp-6)}
+  .eyebrow{font-size:var(--t-eyebrow);font-weight:600;letter-spacing:var(--ls-eyebrow);
+           text-transform:uppercase;color:var(--c-gold-700);margin:0}
+  .mark{color:var(--c-gold-700)}
+  em{font-style:italic}
+  section{padding:var(--sp-20) 0}
+  .sec-head{max-width:48ch;margin-bottom:var(--sp-12)}
+  .sec-head h2{font-size:var(--t-h2);margin-top:var(--sp-3)}
+  .sec-head p{margin-top:var(--sp-4);color:var(--c-muted)}
+  .num{font-family:var(--font-display);font-weight:700;color:var(--c-gold-500)}
+
+  /* ---------- header (same as A) ---------- */
+  .hdr{position:fixed;top:0;left:0;right:0;z-index:60;padding:var(--sp-4) 0;transition:padding var(--dur-mid) var(--ease-soft)}
+  .hdr__in{max-width:var(--wrap);margin:0 auto;padding:0 var(--sp-6);display:flex;align-items:center;gap:var(--sp-6);
+           border-radius:var(--r-pill);transition:all var(--dur-mid) var(--ease-soft)}
+  .hdr.is-stuck{padding:var(--sp-2) 0}
+  .hdr.is-stuck .hdr__in{max-width:1020px;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+       box-shadow:var(--sh-lift);padding:var(--sp-2) var(--sp-3) var(--sp-2) var(--sp-6)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+  .brand__mark{width:34px;height:34px;flex:none;transition:all var(--dur-mid)}
+  .hdr.is-stuck .brand__mark{width:28px;height:28px}
+  .brand__name{font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--c-heading)}
+  .nav{display:flex;gap:var(--sp-6)}
+  .nav a{font-size:var(--t-small);font-weight:500;color:var(--c-body);text-decoration:none}
+  .nav a:hover{color:var(--c-heading)}
+  @media (max-width:860px){.nav,.hdr__cta{display:none}}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:inherit;font-weight:600;
+       border:0;cursor:pointer;text-decoration:none;padding:15px 24px;border-radius:var(--r-pill);min-height:52px;
+       transition:transform var(--dur-fast) var(--ease-out),background var(--dur-fast),box-shadow var(--dur-fast)}
+  .btn:active{transform:translateY(1px) scale(.99)}
+  .btn--action{background:var(--c-action);color:var(--c-action-ink);box-shadow:var(--sh-btn)}
+  .btn--action:hover{background:var(--c-action-deep);color:#fff}
+  .btn--sm{padding:11px 18px;min-height:44px;font-size:var(--t-small)}
+  .btn--ghost{background:transparent;color:var(--c-heading);box-shadow:inset 0 0 0 1.5px var(--c-hairline)}
+  .btn--ghost:hover{box-shadow:inset 0 0 0 1.5px var(--c-heading)}
+  .btn__wa{width:19px;height:19px;flex:none}
+  .cta-note{font-size:var(--t-small);color:var(--c-muted);margin-top:var(--sp-3)}
+  .glow{position:relative;display:inline-flex;border-radius:var(--r-pill)}
+  .glow::before{content:"";position:absolute;inset:-6px;border-radius:inherit;
+    background:radial-gradient(60% 120% at 50% 50%,rgba(37,211,102,.5),transparent 70%);
+    filter:blur(12px);opacity:0;transition:opacity 900ms var(--ease-soft);z-index:-1}
+  .glow.is-lit::before{opacity:1}
+
+  /* ---------- reveal ---------- */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity 520ms var(--ease-out),transform 520ms var(--ease-out)}
+  .rv.in{opacity:1;transform:none}
+
+  /* ---------- hero: two columns ---------- */
+  .hero{padding:calc(var(--sp-28) + 24px) 0 var(--sp-20);position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:120%;z-index:-1;
+    background:radial-gradient(46% 55% at 12% 20%,rgba(63,95,224,.15),transparent 62%),
+               radial-gradient(40% 50% at 90% 30%,rgba(242,188,53,.20),transparent 62%);
+    animation:drift 26s var(--ease-soft) infinite alternate}
+  @keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-3%,2%,0) scale(1.08)}}
+  .hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--sp-12);align-items:center}
+  @media (max-width:900px){.hero__grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(2.6rem,5.6vw,4.5rem);line-height:var(--lh-tight)}
+  .hero .lede{font-size:var(--t-lead);margin-top:var(--sp-6);max-width:48ch}
+  .ratio{display:inline-flex;align-items:center;gap:var(--sp-4);margin-top:var(--sp-8);
+         background:var(--c-surface);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-6);box-shadow:var(--sh-card)}
+  .ratio__part{display:flex;align-items:baseline;gap:8px}
+  .ratio__n{font-family:var(--font-display);font-weight:700;font-size:2rem;line-height:1;color:var(--c-heading)}
+  .ratio__n--gold{color:var(--c-gold-600)}
+  .ratio__l{font-size:var(--t-small);color:var(--c-muted);font-weight:500}
+  .ratio__sep{width:1px;height:28px;background:var(--c-hairline)}
+  .hero__cta{margin-top:var(--sp-8)}
+  .boards{margin-top:var(--sp-6);font-size:var(--t-small);color:var(--c-muted)}
+
+  /* ---------- diagnosis card (hero visual) ---------- */
+  .dx{background:var(--c-indigo-900);border-radius:var(--r-card);padding:var(--sp-8);color:#fff;
+      box-shadow:var(--sh-lift);position:relative;overflow:hidden}
+  .dx::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(70% 60% at 100% 0%,rgba(242,188,53,.16),transparent 60%),
+               radial-gradient(60% 60% at 0% 100%,rgba(63,95,224,.3),transparent 60%)}
+  .dx>*{position:relative;z-index:1}
+  .dx__lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-indigo-200)}
+  .dx__verdict{display:flex;justify-content:space-between;align-items:center;margin-top:var(--sp-3);
+       padding:var(--sp-4);border-radius:var(--r-md);background:var(--c-indigo-800);
+       transition:opacity var(--dur-slow) var(--ease-soft)}
+  .dx__subj{font-family:var(--font-display);font-size:1.3rem;font-weight:700}
+  .dx__tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.1);
+           color:var(--c-indigo-200);position:relative}
+  .dx__tag::after{content:"";position:absolute;left:6px;right:6px;top:50%;height:1.5px;background:var(--c-gold-500);
+           transform:scaleX(0);transform-origin:left;transition:transform 500ms var(--ease-out) 300ms}
+  .dx.is-open .dx__tag::after{transform:scaleX(1)}
+  .dx__arrow{text-align:center;color:var(--c-gold-400);font-size:12px;margin:var(--sp-3) 0;
+             opacity:0;transition:opacity 400ms 600ms}
+  .dx.is-open .dx__arrow{opacity:1}
+  .topics{display:flex;flex-direction:column;gap:9px}
+  .topic{display:grid;grid-template-columns:118px 1fr;align-items:center;gap:var(--sp-3);
+         opacity:0;transform:translateY(6px);transition:opacity 420ms var(--ease-out),transform 420ms var(--ease-out)}
+  .dx.is-open .topic{opacity:1;transform:none}
+  .dx.is-open .topic:nth-child(1){transition-delay:.75s}
+  .dx.is-open .topic:nth-child(2){transition-delay:.85s}
+  .dx.is-open .topic:nth-child(3){transition-delay:.95s}
+  .dx.is-open .topic:nth-child(4){transition-delay:1.05s}
+  .dx.is-open .topic:nth-child(5){transition-delay:1.15s}
+  .topic__name{font-size:var(--t-small);color:var(--c-indigo-200)}
+  .topic__bar{height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+  .topic__fill{height:100%;border-radius:99px;background:var(--c-indigo-500);width:0;
+               transition:width 800ms var(--ease-out)}
+  .dx.is-open .topic__fill{width:var(--w)}
+  .topic--gap .topic__name{color:#fff;font-weight:600}
+  .topic--gap .topic__bar{box-shadow:0 0 0 1.5px var(--c-gold-500)}
+  .topic--gap .topic__fill{background:var(--c-gold-500)}
+  .dx__find{margin-top:var(--sp-6);padding:var(--sp-4);border-radius:var(--r-md);
+            background:rgba(242,188,53,.12);border-left:3px solid var(--c-gold-500);
+            font-size:var(--t-small);color:#fff;opacity:0;transition:opacity 500ms 1.6s}
+  .dx.is-open .dx__find{opacity:1}
+  .dx__find strong{color:var(--c-gold-400)}
+  .dx__note{font-size:11px;color:var(--c-indigo-200);margin-top:var(--sp-4);opacity:.8}
+
+  /* ---------- name lockup ----------
+     "Global" is the same typeface, weight and size as "VR Academy" (it simply
+     inherits them); only the colour differs. */
+  .brand__global{color:var(--c-gold-700)}
+
+  /* ---------- C: boards ---------- */
+  .bchips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2);margin-top:var(--sp-6)}
+  .bchip{font-family:var(--font-display);font-weight:700;font-size:.95rem;letter-spacing:.02em;color:var(--c-heading);
+    background:var(--c-surface);border-radius:var(--r-pill);padding:6px 14px;box-shadow:inset 0 0 0 1.5px var(--c-hairline)}
+  .bchips__meta{font-size:var(--t-small);color:var(--c-muted);margin-left:var(--sp-2)}
+  .boardsband{padding:var(--sp-16) 0 var(--sp-20);border-top:1px solid var(--c-hairline)}
+  .bwords{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-4) var(--sp-8);
+    flex-wrap:wrap;margin-top:var(--sp-6)}
+  .bword{display:flex;flex-direction:column}
+  .bword__name{font-family:var(--font-display);font-weight:700;font-size:clamp(3.4rem,10vw,7.5rem);
+    line-height:.95;letter-spacing:-.035em;color:var(--c-heading)}
+  .bword__full{font-size:var(--t-small);color:var(--c-muted);margin-top:var(--sp-3);max-width:22ch}
+  .bword__sep{font-family:var(--font-display);font-weight:400;font-size:clamp(3.4rem,10vw,7.5rem);
+    line-height:.95;color:var(--c-gold-500)}
+  .bwords__foot{margin-top:var(--sp-8);color:var(--c-body);font-size:var(--t-lead)}
+  @media (max-width:640px){ .bword__sep{display:none} .bwords{flex-direction:column;gap:var(--sp-6)} }
+
+  /* ---------- self-playing batch meter ----------
+     Every tile is placed with a transform, so at every step (40 > 30 > 20 > 10 > 5)
+     the tiles that stay grow and re-centre inside the same block while the ones
+     that leave fade out. The block itself never changes size. */
+  #five .stage__inner{max-width:526px}
+  .meter__grid{position:relative;width:100%;height:181px;margin-bottom:var(--sp-6)}
+  @supports (aspect-ratio:1/1){ .meter__grid{height:auto;aspect-ratio:526/181} }
+  .meter__grid .tile{position:absolute;left:0;top:0;width:100px;height:100px;aspect-ratio:auto;
+    border-radius:14px;transform-origin:0 0;
+    transition:transform .7s var(--ease-out),opacity .5s var(--ease-soft),box-shadow .5s}
+  /* leaving tiles fade quickly so the crossover stays clean; returning tiles fade in at the slower base speed */
+  .meter__grid .tile.is-off{opacity:0;pointer-events:none;
+    transition:transform .7s var(--ease-out),opacity .28s var(--ease-soft),box-shadow .5s}
+  .meter__grid.is-resizing .tile{transition:none}
+  .meter__grid .tile__dot{transition:background .45s}
+  .meter__grid.is-five .tile:not(.is-off){box-shadow:0 0 0 2px rgba(242,188,53,.55)}
+  .meter__grid.is-five .tile:not(.is-off) .tile__dot{background:var(--c-gold-500)}
+  .stops{position:relative;display:flex;justify-content:space-between;padding-top:16px;margin-top:var(--sp-2)}
+  .stops::before{content:"";position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:99px;background:rgba(255,255,255,.14)}
+  .stops__fill{position:absolute;left:16px;top:0;height:4px;border-radius:99px;background:var(--c-gold-500);
+    width:0;transition:width .5s var(--ease-out)}
+  .stop{position:relative;font:inherit;font-size:12px;font-weight:600;color:var(--c-indigo-200);background:transparent;
+    border:0;cursor:pointer;min-width:32px;min-height:32px;padding:4px 2px;border-radius:8px}
+  .stop::before{content:"";position:absolute;left:50%;top:-18px;width:10px;height:10px;margin-left:-5px;border-radius:50%;
+    background:var(--c-indigo-700);box-shadow:0 0 0 3px var(--c-indigo-950);transition:background .3s,transform .3s}
+  .stop.is-past::before{background:var(--c-gold-500)}
+  .stop.is-on{color:#fff}
+  .stop.is-on::before{background:var(--c-gold-500);transform:scale(1.4)}
+  .stop:focus-visible{outline:2px solid var(--c-gold-500);outline-offset:2px}
+
+  /* ---------- band ---------- */
+  .band{background:var(--c-indigo-900);color:#fff;position:relative;overflow:hidden}
+  .band::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 70% at 12% -5%,rgba(63,95,224,.40),transparent 62%),
+               radial-gradient(52% 64% at 94% 104%,rgba(242,188,53,.18),transparent 60%)}
+  .band>*{position:relative;z-index:1}
+  .band h2,.band h3{color:#fff}
+  .band .eyebrow{color:var(--c-gold-400)}
+  .band p{color:var(--c-indigo-200)}
+  .band--round{border-radius:var(--r-xl);margin:0 var(--sp-6)}
+
+  /* ---------- why: widening gap diagram ---------- */
+  .why{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--sp-12);align-items:center}
+  @media (max-width:900px){.why{grid-template-columns:1fr}}
+  .why__steps{display:flex;flex-direction:column;gap:var(--sp-6)}
+  .why__step{display:grid;grid-template-columns:auto 1fr;gap:var(--sp-4)}
+  .why__g{font-family:var(--font-display);font-weight:700;color:var(--c-gold-400);font-size:.95rem;
+          min-width:4.2em;padding-top:2px}
+  .why__step h3{font-size:1.05rem}
+  .why__step p{font-size:var(--t-small);margin-top:4px}
+  .chart{background:var(--c-indigo-950);border-radius:var(--r-card);padding:var(--sp-6)}
+  .chart svg{width:100%;height:auto;display:block}
+  .chart .ln{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;
+             transition:stroke-dashoffset 1.6s var(--ease-out)}
+  .chart .area{opacity:0;transition:opacity .8s 1.2s}
+  .chart.go .ln{stroke-dashoffset:0}
+  .chart.go .area{opacity:1}
+  .chart__legend{display:flex;gap:var(--sp-6);flex-wrap:wrap;margin-top:var(--sp-4);font-size:12px;color:var(--c-indigo-200)}
+  .chart__legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  .chart__cap{font-size:11px;color:var(--c-indigo-200);opacity:.75;margin-top:var(--sp-3)}
+
+  /* ---------- why five ---------- */
+  .five{display:grid;grid-template-columns:.9fr 1.1fr;gap:var(--sp-12);align-items:center}
+  @media (max-width:900px){.five{grid-template-columns:1fr}}
+  .big-ratio{display:flex;align-items:flex-end;gap:var(--sp-6)}
+  .big-ratio__part{display:flex;flex-direction:column}
+  .big-ratio__n{font-family:var(--font-display);font-weight:700;font-size:clamp(4.5rem,10vw,7.5rem);line-height:.9;color:var(--c-heading)}
+  .big-ratio__n--gold{color:var(--c-gold-600)}
+  .big-ratio__l{font-size:var(--t-small);font-weight:600;color:var(--c-muted);letter-spacing:.06em;text-transform:uppercase;margin-top:var(--sp-2)}
+  .big-ratio__slash{font-family:var(--font-display);font-size:clamp(3rem,7vw,5rem);color:var(--c-hairline);line-height:1;padding-bottom:1.6rem}
+  .stage{position:relative;background:var(--c-indigo-950);border-radius:var(--r-card);padding:var(--sp-8) var(--sp-6);
+         display:grid;place-items:center;overflow:hidden}
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(70% 80% at 50% -10%,rgba(63,95,224,.30),transparent 60%)}
+  .stage>*{position:relative;z-index:1}
+  .stage__inner{width:100%;max-width:460px}
+  .readout{display:flex;align-items:baseline;gap:var(--sp-3);margin-bottom:var(--sp-6);color:#fff}
+  .readout__n{font-family:var(--font-display);font-size:3.4rem;font-weight:700;line-height:1;color:var(--c-gold-500);font-variant-numeric:tabular-nums}
+  .readout__u{font-size:var(--t-small);color:var(--c-indigo-200);max-width:20ch}
+  .readout__u strong{color:#fff;font-weight:600}
+  .tile{aspect-ratio:1;border-radius:5px;background:var(--c-indigo-700);box-shadow:var(--sh-inset);display:grid;place-items:center}
+  .tile__dot{width:34%;height:34%;border-radius:50%;background:var(--c-indigo-600)}
+  .caption{font-size:12px;color:var(--c-muted);margin-top:var(--sp-3);font-style:italic}
+
+  /* ---------- how: the loop ---------- */
+  .loop{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-12);align-items:center}
+  @media (max-width:900px){.loop{grid-template-columns:1fr}}
+  .ring{position:relative;width:100%;max-width:420px;aspect-ratio:1;margin:0 auto}
+  .ring svg{position:absolute;inset:0;width:100%;height:100%}
+  .ring__node{position:absolute;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;
+    background:var(--c-surface);box-shadow:var(--sh-card);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:0;cursor:pointer;font:inherit;color:var(--c-heading);transition:all var(--dur-mid) var(--ease-out)}
+  .ring__node b{font-family:var(--font-display);font-size:1.3rem;line-height:1;color:var(--c-muted);transition:color var(--dur-mid)}
+  .ring__node span{font-size:11px;font-weight:600;margin-top:4px}
+  .ring__node.is-active{background:var(--c-indigo-900);color:#fff;transform:scale(1.1);box-shadow:var(--sh-lift)}
+  .ring__node.is-active b{color:var(--c-gold-500)}
+  .ring__centre{position:absolute;inset:32%;border-radius:50%;display:grid;place-items:center;text-align:center;
+    font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--c-heading);line-height:1.2}
+  .ring__centre small{display:block;font-family:var(--font-body);font-weight:500;font-size:11px;color:var(--c-muted);margin-top:6px}
+  .steps{display:flex;flex-direction:column;gap:var(--sp-2)}
+  .stp{border-radius:var(--r-md);padding:var(--sp-4) var(--sp-6);transition:background var(--dur-mid),box-shadow var(--dur-mid);cursor:pointer}
+  .stp h3{font-size:1.1rem;display:flex;gap:var(--sp-3);align-items:baseline}
+  .stp h3 b{color:var(--c-muted);font-size:.9rem}
+  .stp p{font-size:var(--t-small);color:var(--c-muted);margin-top:6px;max-height:0;overflow:hidden;
+         transition:max-height var(--dur-mid) var(--ease-soft)}
+  .stp.is-active{background:var(--c-surface);box-shadow:var(--sh-card)}
+  .stp.is-active h3 b{color:var(--c-gold-600)}
+  .stp.is-active p{max-height:12em}
+
+  /* ---------- what a parent sees ---------- */
+  .sees{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-12);align-items:center}
+  @media (max-width:900px){.sees{grid-template-columns:1fr}}
+  .phone{max-width:360px;margin:0 auto;background:#0B141A;border-radius:34px;padding:14px;box-shadow:var(--sh-lift)}
+  .phone__top{display:flex;align-items:center;gap:10px;padding:8px 10px 12px;color:#fff;font-size:13px;font-weight:600}
+  .phone__top svg{width:28px;height:28px;border-radius:8px}
+  .phone__top small{display:block;font-weight:400;color:#8696a0;font-size:11px}
+  .chat{background:#0F1C22;border-radius:22px;padding:16px 12px;min-height:360px;display:flex;flex-direction:column;gap:8px}
+  .msg{background:#1F2C33;color:#E9EDEF;border-radius:12px;border-top-left-radius:4px;padding:10px 12px;font-size:13px;line-height:1.5;max-width:92%}
+  .msg--out{background:#005C4B;align-self:flex-end;border-top-left-radius:12px;border-top-right-radius:4px}
+  .msg__h{font-weight:700;margin-bottom:6px}
+  .msg__row{display:flex;justify-content:space-between;gap:12px}
+  .msg__row span:last-child{font-weight:600}
+  .msg__up{color:#F2BC35}
+  .msg__t{font-size:10px;color:#8696a0;text-align:right;margin-top:4px}
+  .msg{opacity:0;transform:translateY(8px);transition:opacity 500ms var(--ease-out),transform 500ms var(--ease-out)}
+  .chat.go .msg{opacity:1;transform:none}
+  .chat.go .msg:nth-child(2){transition-delay:.9s}
+  .example{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+           color:var(--c-gold-700);background:var(--c-gold-100);border-radius:99px;padding:5px 12px;margin-top:var(--sp-4)}
+  .ticks{list-style:none;padding:0;margin:var(--sp-6) 0 0;display:flex;flex-direction:column;gap:var(--sp-3)}
+  .ticks li{display:flex;gap:var(--sp-3);align-items:flex-start}
+  .ticks li::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;margin-top:2px;
+    background:var(--c-gold-100) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.5 2.5L14 7.5' fill='none' stroke='%23A9761A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+
+  /* ---------- included ---------- */
+  .incl{display:grid;gap:var(--sp-4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .cell{background:var(--c-surface);border-radius:var(--r-card);padding:var(--sp-6);box-shadow:var(--sh-card);
+        transition:transform var(--dur-mid) var(--ease-out),box-shadow var(--dur-mid)}
+  .cell:hover{transform:translateY(-4px);box-shadow:var(--sh-lift)}
+  .cell h3{font-size:var(--t-h3);margin-bottom:var(--sp-2)}
+  .cell p{color:var(--c-muted);font-size:var(--t-small)}
+  .cell__ico{width:38px;height:38px;border-radius:10px;background:var(--c-indigo-100);display:grid;place-items:center;
+             margin-bottom:var(--sp-4);color:var(--c-indigo-600)}
+  .cell__ico svg{width:20px;height:20px}
+  .cell--hero{background:var(--c-indigo-900);grid-column:span 2}
+  .cell--hero h3{color:#fff}
+  .cell--hero p{color:var(--c-indigo-200)}
+  .cell--hero .cell__ico{background:rgba(242,188,53,.16);color:var(--c-gold-400)}
+  @media (max-width:600px){.cell--hero{grid-column:auto}}
+
+  /* ---------- comparison ---------- */
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4)}
+  @media (max-width:760px){.cmp{grid-template-columns:1fr}}
+  .cmp__col{border-radius:var(--r-card);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)}
+  .cmp__col--them{background:var(--c-surface-sunken)}
+  .cmp__col--us{background:var(--c-indigo-900);color:#fff;box-shadow:var(--sh-lift)}
+  .cmp__hd{font-family:var(--font-display);font-weight:700;font-size:1.1rem;padding-bottom:var(--sp-4);border-bottom:1px solid var(--c-hairline)}
+  .cmp__col--us .cmp__hd{border-bottom-color:rgba(255,255,255,.16)}
+  .cmp__row{display:flex;flex-direction:column;gap:3px}
+  .cmp__k{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--c-muted)}
+  .cmp__col--us .cmp__k{color:var(--c-gold-400)}
+  .cmp__v{font-size:var(--t-small);font-weight:500}
+
+  /* ---------- trial / faq / placeholder / footer ---------- */
+  .trial{display:grid;gap:var(--sp-6);grid-template-columns:repeat(auto-fit,minmax(240px,1fr));counter-reset:s}
+  .trial__s{counter-increment:s}
+  .trial__s::before{content:counter(s);font-family:var(--font-display);font-weight:700;font-size:2.4rem;color:var(--c-gold-500);display:block;line-height:1;margin-bottom:var(--sp-3)}
+  .trial__s h3{font-size:var(--t-h3);margin-bottom:var(--sp-2)}
+  .trial__s p{color:var(--c-muted);font-size:var(--t-small)}
+  .faq{max-width:760px}
+  .q{border-bottom:1px solid var(--c-hairline)}
+  .q summary{cursor:pointer;list-style:none;padding:var(--sp-6) 40px var(--sp-6) 0;position:relative;
+             font-family:var(--font-display);font-weight:600;font-size:1.08rem;color:var(--c-heading)}
+  .q summary::-webkit-details-marker{display:none}
+  .q summary::after{content:"";position:absolute;right:8px;top:50%;width:9px;height:9px;border-right:2px solid var(--c-muted);
+    border-bottom:2px solid var(--c-muted);transform:translateY(-70%) rotate(45deg);transition:transform var(--dur-fast)}
+  .q[open] summary::after{transform:translateY(-30%) rotate(225deg)}
+  .q__a{padding:0 0 var(--sp-6);max-width:64ch}
+  .ph{border:2px dashed var(--c-gold-600);border-radius:var(--r-card);padding:var(--sp-6);background:var(--c-gold-100)}
+  .ph__tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+           color:var(--c-action-ink);background:var(--c-gold-500);border-radius:99px;padding:5px 12px;margin-bottom:var(--sp-4)}
+  .ph__note{font-size:var(--t-small);color:var(--c-gold-700);margin-top:var(--sp-4)}
+  .quotes{display:grid;gap:var(--sp-4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .quote{background:var(--c-surface);border-radius:var(--r-md);padding:var(--sp-6);box-shadow:var(--sh-card);margin:0}
+  .quote p{font-family:var(--font-display);font-size:1.05rem;color:var(--c-heading);line-height:1.45}
+  .quote footer{margin-top:var(--sp-4);font-size:var(--t-small);color:var(--c-muted)}
+  .ft{background:var(--c-indigo-950);color:var(--c-indigo-200);padding:var(--sp-16) 0 calc(var(--sp-16) + 70px)}
+  .ft a{color:#fff}
+  .ft__top{display:flex;gap:var(--sp-8);flex-wrap:wrap}
+  .ft__fine{margin-top:var(--sp-12);padding-top:var(--sp-6);border-top:1px solid rgba(255,255,255,.12);font-size:var(--t-small)}
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+          background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--c-hairline);display:none}
+  .sticky .btn{width:100%}
+  @media (max-width:860px){.sticky{display:block}}
+
+  @media (max-width:640px){
+    section{padding:var(--sp-16) 0}
+    .band--round{margin:0 var(--sp-4);border-radius:var(--r-card)}
+    .dx{padding:var(--sp-6)}
+    .topic{grid-template-columns:96px 1fr}
+    .ring__node{width:72px;height:72px;margin:-36px 0 0 -36px}
+    .ratio{gap:var(--sp-3);padding:var(--sp-3) var(--sp-4)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important;transition:none!important}
+    .rv{opacity:1;transform:none}
+    .topic,.dx__arrow,.dx__find,.msg{opacity:1;transform:none}
+    .topic__fill{width:var(--w)}
+    .dx__tag::after{transform:scaleX(1)}
+    .chart .ln{stroke-dashoffset:0}
+    .chart .area{opacity:1}
+    .glow::before{opacity:1}
+  }
+
+  /* ── Trust numbers band ── */
+  .numband{background:var(--c-indigo-900);padding:var(--sp-14) 0}
+  .numband__inner{display:flex;align-items:stretch;justify-content:center;gap:0;flex-wrap:wrap}
+  .numband__stat{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--sp-6) var(--sp-12);min-width:220px;flex:1;max-width:300px}
+  .numband__icon{display:block;margin:0 auto var(--sp-4);opacity:.85}
+  .numband__n{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,2.8rem);color:var(--c-gold-400);display:block;line-height:1}
+  .numband__l{font-size:var(--t-small);color:rgba(255,255,255,.65);margin-top:var(--sp-2);display:block;line-height:1.4}
+  .numband__sep{width:1px;background:rgba(255,255,255,.18);flex-shrink:0;align-self:stretch;margin:var(--sp-4) 0}
+  @media(max-width:700px){.numband__sep{display:none}.numband__stat{min-width:160px;padding:var(--sp-6) var(--sp-6)}}
+
+  /* ── Schools ticker ── */
+  .schools{padding:var(--sp-20) 0 var(--sp-16)}
+  .ticker-wrap{overflow:hidden;margin-top:var(--sp-10);
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 10%,#000 90%,transparent 100%);
+    mask-image:linear-gradient(to right,transparent 0%,#000 10%,#000 90%,transparent 100%)}
+  .ticker-track{display:flex;width:max-content;animation:school-tick 36s linear infinite}
+  .ticker-track:hover{animation-play-state:paused}
+  .school-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:var(--c-surface);border-radius:16px;padding:20px 28px;
+    box-shadow:inset 0 0 0 1.5px var(--c-hairline),0 2px 8px rgba(0,0,0,.06);
+    margin-right:20px;width:220px;flex-shrink:0}
+  .school-card__logo{width:64px;height:64px;border-radius:12px;background:var(--c-indigo-900);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+  .school-card__logo img{width:100%;height:100%;object-fit:contain}
+  .school-card__logo-fallback{font-family:var(--font-display);font-weight:800;font-size:.78rem;
+    color:var(--c-gold-400);letter-spacing:.04em;text-align:center;line-height:1.3;padding:6px}
+  .school-card__info{text-align:center}
+  .school-card__name{font-family:var(--font-display);font-weight:600;font-size:.85rem;color:var(--c-heading);line-height:1.3;display:block}
+  .school-card__city{font-size:.78rem;color:var(--c-muted);margin-top:3px;display:block}
+  @keyframes school-tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="#top">
+      <!-- The Pivot: a bold V, gold at the point where the two strokes meet —
+           the exact spot where a vague "weak in maths" becomes one findable gap.
+           Source: brand/logo-v3/ (concept G). -->
+      <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M11 10 L24 33 L37 10" fill="none" stroke="var(--c-indigo-900)"
+              stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="33" r="5.4" fill="var(--c-gold-500)"/>
+      </svg>
+      <span class="brand__name">VR Academy <span class="brand__global">Global</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#boards">Boards</a>
+      <a href="#why">Why</a>
+      <a href="#five">Why five</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <span class="hdr__cta"><a class="btn btn--action btn--sm" data-wa="default" href="#">
+      <svg class="btn__wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 000-.4L9.6 7.9c-.2-.4-.3-.4-.5-.4h-.4a.9.9 0 00-.6.3 2.6 2.6 0 00-.8 1.9 4.5 4.5 0 001 2.4 10.3 10.3 0 003.9 3.4c1.5.6 2 .6 2.8.5a2.3 2.3 0 001.5-1.1 1.9 1.9 0 00.1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg>
+      Book a free trial</a></span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO — the diagnosis ============ -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <p class="eyebrow rv">Live online coaching · Grades 6–10 · Saudi Arabia</p>
+        <h1 class="rv" style="margin-top:var(--sp-4)">It's <span class="mark">rarely</span> the whole subject.</h1>
+        <p class="lede rv">A child labelled “weak in maths” is usually stuck on one idea — a Grade 6
+          geometry concept nobody went back to. With five students and one tutor, that gap gets found
+          and fixed before the syllabus moves on.</p>
+        <div class="ratio rv" aria-label="Five students, one tutor">
+          <div class="ratio__part"><span class="ratio__n">5</span><span class="ratio__l">students</span></div>
+          <div class="ratio__sep"></div>
+          <div class="ratio__part"><span class="ratio__n ratio__n--gold">1</span><span class="ratio__l">tutor</span></div>
+        </div>
+        <div class="hero__cta rv">
+          <span class="glow"><a class="btn btn--action" data-wa="default" href="#">
+            <svg class="btn__wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 000-.4L9.6 7.9c-.2-.4-.3-.4-.5-.4h-.4a.9.9 0 00-.6.3 2.6 2.6 0 00-.8 1.9 4.5 4.5 0 001 2.4 10.3 10.3 0 003.9 3.4c1.5.6 2 .6 2.8.5a2.3 2.3 0 001.5-1.1 1.9 1.9 0 00.1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg>
+            Book a free trial class</a></span>
+          <p class="cta-note">No fee for the trial. Booked in a WhatsApp message.</p>
+          <p class="cta-note" style="margin-top:var(--sp-2)">Or <a href="gap-check.html" style="color:var(--accent-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px;">find the gap first — free Maths Gap Check →</a></p>
+        </div>
+        <div class="bchips rv" aria-label="Boards we teach"><span class="bchip">CBSE</span><span class="bchip">IGCSE</span><span class="bchip">IB</span><span class="bchips__meta">Grades 6–10 · evenings, Saudi time</span></div>
+      </div>
+
+      <div class="dx rv" id="dx" aria-label="Illustration: a subject broken down into topics, with one gap found">
+        <p class="dx__lbl">What the report card says</p>
+        <div class="dx__verdict"><span class="dx__subj">Mathematics</span><span class="dx__tag">“Weak”</span></div>
+        <p class="dx__arrow">↓ What a tutor finds when they look closer</p>
+        <div class="topics">
+          <div class="topic"><span class="topic__name">Number systems</span><div class="topic__bar"><div class="topic__fill" style="--w:82%"></div></div></div>
+          <div class="topic"><span class="topic__name">Algebra</span><div class="topic__bar"><div class="topic__fill" style="--w:74%"></div></div></div>
+          <div class="topic topic--gap"><span class="topic__name">Geometry</span><div class="topic__bar"><div class="topic__fill" style="--w:26%"></div></div></div>
+          <div class="topic"><span class="topic__name">Mensuration</span><div class="topic__bar"><div class="topic__fill" style="--w:61%"></div></div></div>
+          <div class="topic"><span class="topic__name">Data handling</span><div class="topic__bar"><div class="topic__fill" style="--w:79%"></div></div></div>
+        </div>
+        <div class="dx__find"><strong>The real gap:</strong> angle properties — a Grade 6 idea. Everything
+          later in geometry is built on it.</div>
+        <p class="dx__note">Illustration of the idea, not a real student.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOARDS — display only ============ -->
+  <section class="boardsband" id="boards">
+    <div class="wrap">
+      <p class="eyebrow rv">Boards we teach</p>
+      <div class="bwords">
+        <div class="bword rv"><span class="bword__name">CBSE</span>
+          <span class="bword__full">Central Board of Secondary Education</span></div>
+        <span class="bword__sep rv" aria-hidden="true">·</span>
+        <div class="bword rv"><span class="bword__name">IGCSE</span>
+          <span class="bword__full">Cambridge International</span></div>
+        <span class="bword__sep rv" aria-hidden="true">&middot;</span>
+        <div class="bword rv"><span class="bword__name">IB</span>
+          <span class="bword__full">International Baccalaureate</span></div>
+      </div>
+      <p class="bwords__foot rv">Grades 6 to 10 — taught to whichever board your child follows at school.</p>
+    </div>
+  </section>
+
+  <!-- ============ TRUST NUMBERS ============ -->
+  <div class="numband">
+    <div class="wrap">
+      <div class="numband__inner">
+        <div class="numband__stat rv">
+          <svg class="numband__icon" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <circle cx="18" cy="12" r="6" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+            <path d="M6 30c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="numband__n">5,500+</span>
+          <span class="numband__l">students taught by our team</span>
+        </div>
+        <div class="numband__sep"></div>
+        <div class="numband__stat rv">
+          <svg class="numband__icon" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect x="5" y="8" width="26" height="22" rx="3" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none"/>
+            <path d="M5 14h26" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+            <path d="M12 5v6M24 5v6" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M11 21h4M21 21h4M11 26h4" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="numband__n">11+</span>
+          <span class="numband__l">years teaching experience</span>
+        </div>
+        <div class="numband__sep"></div>
+        <div class="numband__stat rv">
+          <svg class="numband__icon" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <circle cx="10" cy="13" r="4.5" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none"/>
+            <circle cx="26" cy="13" r="4.5" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none"/>
+            <circle cx="18" cy="13" r="4.5" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none"/>
+            <path d="M2 30c0-4.418 3.582-8 8-8M36 30c0-4.418-3.582-8-8-8M10 30c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="numband__n">5</span>
+          <span class="numband__l">students max per batch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WHY — the gap compounds ============ -->
+  <section class="band" id="why">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Why we exist</p>
+        <h2>A small gap doesn't stay small.</h2>
+        <p>The syllabus keeps moving. A missed idea in one grade becomes the reason a whole chapter
+          makes no sense two grades later.</p>
+      </div>
+      <div class="why">
+        <div class="why__steps">
+          <div class="why__step rv"><span class="why__g">Grade 6</span>
+            <div><h3>One idea doesn't land</h3><p>A quiet child doesn't ask. In a crowded class, nobody notices.</p></div></div>
+          <div class="why__step rv"><span class="why__g">Grade 8</span>
+            <div><h3>New chapters build on it</h3><p>The child can follow the steps but not the reasoning, and marks start to slip.</p></div></div>
+          <div class="why__step rv"><span class="why__g">Grade 10</span>
+            <div><h3>It looks like “weak at maths”</h3><p>The pace is now too fast to catch up alone, in the year that counts most.</p></div></div>
+        </div>
+        <div class="chart rv" id="chart">
+          <svg viewBox="0 0 420 250" role="img" aria-label="Illustration: the syllabus rises steadily while understanding flattens after a missed idea, and the gap between them widens">
+            <g stroke="rgba(255,255,255,.08)" stroke-width="1">
+              <line x1="40" y1="210" x2="400" y2="210"/>
+              <line x1="40" y1="20" x2="40" y2="210"/>
+            </g>
+            <g fill="#C5D0F7" font-size="11" font-family="Inter, sans-serif">
+              <text x="40" y="232">Grade 6</text><text x="130" y="232">7</text><text x="220" y="232">8</text>
+              <text x="310" y="232">9</text><text x="372" y="232">10</text>
+            </g>
+            <path class="area" d="M95 168 L400 36 L400 150 L310 154 L220 160 L130 166 Z" fill="rgba(242,188,53,.18)"/>
+            <path class="ln" d="M40 192 L130 150 L220 110 L310 72 L400 36" stroke="#C5D0F7"/>
+            <path class="ln" d="M40 196 L95 168 L130 166 L220 160 L310 154 L400 150" stroke="#F2BC35"/>
+            <circle cx="95" cy="168" r="5" fill="#F2BC35"/>
+            <text x="102" y="188" fill="#F7CF5C" font-size="11" font-family="Inter, sans-serif">missed idea</text>
+            <text x="300" y="118" fill="#F7CF5C" font-size="13" font-weight="700" font-family="Fraunces, serif">the gap</text>
+          </svg>
+          <div class="chart__legend"><span><i style="background:#C5D0F7"></i>What the syllabus expects</span>
+            <span><i style="background:#F2BC35"></i>What the child actually understands</span></div>
+          <p class="chart__cap">A picture of the idea, not measured data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY FIVE ============ -->
+  <section id="five">
+    <div class="wrap five">
+      <div>
+        <p class="eyebrow rv">Why five</p>
+        <h2 class="rv" style="font-size:var(--t-h2);margin-top:var(--sp-3)">Small enough to find the gap. Small enough to follow it.</h2>
+        <div class="big-ratio rv" style="margin-top:var(--sp-8)">
+          <div class="big-ratio__part"><span class="big-ratio__n">5</span><span class="big-ratio__l">Students</span></div>
+          <span class="big-ratio__slash">/</span>
+          <div class="big-ratio__part"><span class="big-ratio__n big-ratio__n--gold">1</span><span class="big-ratio__l">Tutor</span></div>
+        </div>
+        <p class="rv" style="margin-top:var(--sp-6);max-width:46ch">In a batch of thirty or forty, a tutor teaches the
+          class. In a batch of five, a tutor teaches each child — and can see which step they got stuck on.
+          Five is a hard cap: if a batch would need a sixth child, it becomes a new batch.</p>
+      </div>
+      <div class="rv">
+        <div class="stage">
+          <div class="stage__inner">
+            <div class="readout"><span class="readout__n" id="meterMin">1.5</span>
+              <span class="readout__u">minutes of tutor time per child<br><strong id="meterCount">in a batch of 40</strong></span></div>
+            <div class="meter__grid" id="meterGrid" aria-hidden="true"></div>
+            <div class="stops" id="stops" role="group" aria-label="Batch size"></div>
+          </div>
+        </div>
+        <p class="caption">It plays on its own — tap a number to hold it there. If a sixty-minute class were
+          divided equally between every student, this is each child's share: an illustration of the
+          arithmetic, not a statement of how long a class runs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW — the weekly loop ============ -->
+  <section id="how" style="background:var(--c-surface-sunken)">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">How it works</p>
+        <h2>A personalized learning journey, run every week.</h2>
+        <p>Not a plan written once and filed away. The same five steps, repeated, so the plan keeps up with your child.</p>
+      </div>
+      <div class="loop">
+        <div class="ring rv" id="ring">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="50" r="38" fill="none" stroke="var(--c-hairline)" stroke-width="1.2"/>
+            <circle id="ringArc" cx="50" cy="50" r="38" fill="none" stroke="var(--c-gold-500)" stroke-width="1.6"
+                    stroke-linecap="round" stroke-dasharray="238.8" stroke-dashoffset="238.8"
+                    transform="rotate(-90 50 50)" style="transition:stroke-dashoffset .7s var(--ease-out)"/>
+          </svg>
+          <div class="ring__centre"><div>Every week<small>the loop repeats</small></div></div>
+        </div>
+        <div class="steps" id="steps">
+          <div class="stp is-active" data-i="0"><h3><b>01</b>Understand</h3>
+            <p>We start with a conversation — with you and with your child — to find where they actually are,
+              topic by topic, not just subject by subject.</p></div>
+          <div class="stp" data-i="1"><h3><b>02</b>Plan</h3>
+            <p>That becomes your child's personalized learning journey: which gaps to close first, and in what order.</p></div>
+          <div class="stp" data-i="2"><h3><b>03</b>Teach, in five</h3>
+            <p>Live online classes with one tutor and five students, with doubt support so a question never waits for the next class.</p></div>
+          <div class="stp" data-i="3"><h3><b>04</b>Practise and test</h3>
+            <p>Homework after class, and a weekly test that shows whether the idea has actually landed.
+              Sessions are recorded so your child can go back over them.</p></div>
+          <div class="stp" data-i="4"><h3><b>05</b>Report</h3>
+            <p>A weekly progress note on WhatsApp — what was covered, how the test went, and what comes next.
+              Then the plan is adjusted, and the loop starts again.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT A PARENT SEES ============ -->
+  <section>
+    <div class="wrap sees">
+      <div>
+        <p class="eyebrow rv">What you see as a parent</p>
+        <h2 class="rv" style="font-size:var(--t-h2);margin-top:var(--sp-3)">No guessing how it's going.</h2>
+        <p class="rv" style="margin-top:var(--sp-4);max-width:46ch">Every week, a short progress note arrives on the
+          same WhatsApp chat you booked the trial on. You can reply to it.</p>
+        <ul class="ticks rv">
+          <li>Which topics were covered</li>
+          <li>How the weekly test went, and how that compares with last week</li>
+          <li>Homework submitted, and any doubts raised</li>
+          <li>What the tutor is focusing on next</li>
+        </ul>
+      </div>
+      <div class="rv">
+        <div class="phone">
+          <div class="phone__top">
+            <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#10142E"/><g transform="translate(24 24) scale(.86) translate(-24 -24)"><path d="M11 10 L24 33 L37 10" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="33" r="5.4" fill="#F2BC35"/></g></svg>
+            <div>VR Academy Global<small>Weekly progress note</small></div>
+          </div>
+          <div class="chat" id="chat">
+            <div class="msg">
+              <div class="msg__h">Weekly progress · Riya, Grade 8</div>
+              <div>Covered: angle properties, angle sums in triangles</div>
+              <div style="margin-top:6px" class="msg__row"><span>Weekly test — Geometry</span><span>7 / 10</span></div>
+              <div class="msg__row"><span>Last week</span><span>4 / 10 <span class="msg__up">↑</span></span></div>
+              <div style="margin-top:6px">Homework: all submitted</div>
+              <div>Doubt raised: exterior angles — covered in class</div>
+              <div style="margin-top:6px"><b>Next:</b> polygons, building on this week</div>
+              <div class="msg__t">7:42 pm</div>
+            </div>
+            <div class="msg msg--out">Thank you — she mentioned the triangle one finally made sense.
+              <div class="msg__t">8:05 pm ✓✓</div></div>
+          </div>
+        </div>
+        <div style="text-align:center"><span class="example">Example of the format · not a real student</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT'S INCLUDED ============ -->
+  <section style="background:var(--c-surface-sunken)">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">What's included</p>
+        <h2>Everything that makes five students work.</h2>
+      </div>
+      <div class="incl">
+        <div class="cell cell--hero rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18c3-6 6-9 8-9s3 2 4 2 2-2 4-4"/><circle cx="4" cy="18" r="1.6"/><circle cx="20" cy="7" r="1.6"/></svg></div>
+          <h3>A personalized learning journey</h3><p>Built from a conversation about where your child really is, and adjusted every week as they move.</p></div>
+        <div class="cell rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3.5 19c.8-3 3-4.5 5.5-4.5S13.7 16 14.5 19M14 15.2c.9-.6 1.9-.9 3-.9 2 0 3.6 1.2 4 3.7"/></svg></div>
+          <h3>Five students, one tutor</h3><p>A hard cap, and the same tutor who knows your child.</p></div>
+        <div class="cell rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h14v16H5z"/><path d="M8.5 9l1.5 1.5L13 7.5M8.5 15l1.5 1.5 3-3M15 9h1.5M15 15h1.5"/></svg></div>
+          <h3>A weekly test</h3><p>Short, and focused on the week's topics, so progress is measured rather than assumed.</p></div>
+        <div class="cell rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20l4-1 9.5-9.5a2.1 2.1 0 00-3-3L5 16l-1 4z"/></svg></div>
+          <h3>Homework</h3><p>Practice after each class, checked by the tutor.</p></div>
+        <div class="cell rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 5h14v10H9l-4 4V5z"/><path d="M10 9.5a2 2 0 113 1.7c-.6.4-1 .8-1 1.5M12 14.5v.1"/></svg></div>
+          <h3>Doubt support</h3><p>Questions don't have to wait for the next class.</p></div>
+        <div class="cell rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg></div>
+          <h3>Recorded sessions</h3><p>Every class can be watched again for revision.</p></div>
+        <div class="cell rv"><div class="cell__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a9 9 0 00-7.7 13.6L3 21l4.5-1.2A9 9 0 1012 3z"/><path d="M8.5 11h7M8.5 14h4.5"/></svg></div>
+          <h3>A weekly progress note</h3><p>On WhatsApp, every week, so you always know where things stand.</p></div>
+      </div>
+      <div class="rv" style="margin-top:var(--sp-12)">
+        <span class="glow"><a class="btn btn--action" data-wa="report" href="#">
+          <svg class="btn__wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 000-.4L9.6 7.9c-.2-.4-.3-.4-.5-.4h-.4a.9.9 0 00-.6.3 2.6 2.6 0 00-.8 1.9 4.5 4.5 0 001 2.4 10.3 10.3 0 003.9 3.4c1.5.6 2 .6 2.8.5a2.3 2.3 0 001.5-1.1 1.9 1.9 0 00.1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg>
+          Book a free trial class</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section id="compare">
+    <div class="wrap">
+      <div class="sec-head rv"><p class="eyebrow">Compare</p><h2>A typical online batch, next to this one.</h2></div>
+      <div class="cmp rv">
+        <div class="cmp__col cmp__col--them">
+          <div class="cmp__hd">A typical online batch</div>
+          <div class="cmp__row"><span class="cmp__k">Students per class</span><span class="cmp__v">Thirty to forty</span></div>
+          <div class="cmp__row"><span class="cmp__k">Starting point</span><span class="cmp__v">The syllabus</span></div>
+          <div class="cmp__row"><span class="cmp__k">Plan</span><span class="cmp__v">The same for everyone</span></div>
+          <div class="cmp__row"><span class="cmp__k">Progress</span><span class="cmp__v">Seen at exam time</span></div>
+          <div class="cmp__row"><span class="cmp__k">Parent updates</span><span class="cmp__v">Rare</span></div>
+          <div class="cmp__row"><span class="cmp__k">Fees</span><span class="cmp__v">Bundled, hard to compare</span></div>
+        </div>
+        <div class="cmp__col cmp__col--us">
+          <div class="cmp__hd">VR Academy Global</div>
+          <div class="cmp__row"><span class="cmp__k">Students per class</span><span class="cmp__v">Five, with one tutor</span></div>
+          <div class="cmp__row"><span class="cmp__k">Starting point</span><span class="cmp__v">Your child</span></div>
+          <div class="cmp__row"><span class="cmp__k">Plan</span><span class="cmp__v">A personalized learning journey</span></div>
+          <div class="cmp__row"><span class="cmp__k">Progress</span><span class="cmp__v">A test every week</span></div>
+          <div class="cmp__row"><span class="cmp__k">Parent updates</span><span class="cmp__v">A progress note on WhatsApp, weekly</span></div>
+          <div class="cmp__row"><span class="cmp__k">Fees</span><span class="cmp__v">Shared upfront on WhatsApp</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCHOOLS ============ -->
+  <section class="schools">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Our experience</p>
+        <h2>Students from these schools have been part of our classes across Saudi Arabia.</h2>
+      </div>
+    </div>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">IIS</span></div><div class="school-card__info"><span class="school-card__name">International Indian School</span><span class="school-card__city">Dammam</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">IIS</span></div><div class="school-card__info"><span class="school-card__name">International Indian School</span><span class="school-card__city">Riyadh</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">IIS</span></div><div class="school-card__info"><span class="school-card__name">International Indian School</span><span class="school-card__city">Jeddah</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">AKI</span></div><div class="school-card__info"><span class="school-card__name">Al Khozama International School</span><span class="school-card__city">Al Khobar</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">AMI</span></div><div class="school-card__info"><span class="school-card__name">Al Muna International School</span><span class="school-card__city">Al Khobar</span></div></div>
+        <!-- duplicate for seamless loop -->
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">IIS</span></div><div class="school-card__info"><span class="school-card__name">International Indian School</span><span class="school-card__city">Dammam</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">IIS</span></div><div class="school-card__info"><span class="school-card__name">International Indian School</span><span class="school-card__city">Riyadh</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">IIS</span></div><div class="school-card__info"><span class="school-card__name">International Indian School</span><span class="school-card__city">Jeddah</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">AKI</span></div><div class="school-card__info"><span class="school-card__name">Al Khozama International School</span><span class="school-card__city">Al Khobar</span></div></div>
+        <div class="school-card"><div class="school-card__logo"><span class="school-card__logo-fallback">AMI</span></div><div class="school-card__info"><span class="school-card__name">Al Muna International School</span><span class="school-card__city">Al Khobar</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLACEHOLDER: replace before launch. No testimonials are cleared for public use. -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv"><p class="eyebrow">What parents say</p><h2>In their words.</h2></div>
+      <div class="ph rv">
+        <span class="ph__tag">Placeholder — replace before launch</span>
+        <div class="quotes">
+          <blockquote class="quote"><p>Best slot for a quote about finding the real gap.</p><footer>Parent of a Grade 8 student · city</footer></blockquote>
+          <blockquote class="quote"><p>Best slot for a quote about the weekly progress note.</p><footer>Parent of a Grade 10 student · city</footer></blockquote>
+        </div>
+        <p class="ph__note">Built and styled, holds no real content. Nothing is published here without the parent's written permission.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRIAL ============ -->
+  <section id="trial" style="background:var(--c-surface-sunken)">
+    <div class="wrap">
+      <div class="sec-head rv"><p class="eyebrow">The free trial</p><h2>Where the journey starts.</h2></div>
+      <div class="trial">
+        <div class="trial__s rv"><h3>Message us on WhatsApp</h3><p>Tell us your child's grade and what's giving trouble. That's enough to start.</p></div>
+        <div class="trial__s rv"><h3>We talk it through</h3><p>A short conversation about where your child is — the first step of their learning journey — and two evening slots to pick from.</p></div>
+        <div class="trial__s rv"><h3>Your child sits in a real class</h3><p>A live session with a live batch of five, not a demo. No pressure either way afterwards.</p></div>
+      </div>
+      <div class="rv" style="margin-top:var(--sp-12)">
+        <span class="glow"><a class="btn btn--action" data-wa="book" href="#">
+          <svg class="btn__wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 000-.4L9.6 7.9c-.2-.4-.3-.4-.5-.4h-.4a.9.9 0 00-.6.3 2.6 2.6 0 00-.8 1.9 4.5 4.5 0 001 2.4 10.3 10.3 0 003.9 3.4c1.5.6 2 .6 2.8.5a2.3 2.3 0 001.5-1.1 1.9 1.9 0 00.1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg>
+          Book a free trial class</a></span>
+        <p class="cta-note">No fee for the trial. Booked in a WhatsApp message.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head rv"><p class="eyebrow">Questions</p><h2>Fair questions.</h2></div>
+      <div class="faq">
+        <details class="q rv"><summary>My child is weak in maths. Is this for them?</summary>
+          <div class="q__a">Very likely — but “weak in maths” is usually a gap in one or two topics rather than
+            the whole subject. Finding which ones is the first thing we do.</div></details>
+        <details class="q rv"><summary>Is it really five students, or five on average?</summary>
+          <div class="q__a">Five. If a batch would need to take a sixth child, it becomes a new batch instead.</div></details>
+        <details class="q rv"><summary>What does the weekly progress note include?</summary>
+          <div class="q__a">What was covered, the weekly test result and how it compares with the week before,
+            homework, any doubts raised, and what the tutor is focusing on next. It comes on WhatsApp.</div></details>
+        <details class="q rv"><summary>Are classes recorded?</summary>
+          <div class="q__a">Yes. Sessions are recorded so your child can go back over them when revising.</div></details>
+        <details class="q rv"><summary>What are the fees?</summary>
+          <div class="q__a">We share the full fee on WhatsApp before the trial. It depends on the grade and how
+            many subjects you want, and there is no long contract to sign.</div></details>
+        <details class="q rv"><summary>Will the timing clash with school?</summary>
+          <div class="q__a">Classes are in the evening, Saudi time, after school hours.</div></details>
+      </div>
+      <div class="rv" style="margin-top:var(--sp-12)">
+        <a class="btn btn--ghost" data-wa="fees" href="#">Ask us about the fees on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSE ============ -->
+  <section class="band band--round" style="margin-bottom:var(--sp-20)">
+    <div class="wrap" style="text-align:center">
+      <p class="eyebrow rv">One free trial</p>
+      <h2 class="rv" style="font-size:var(--t-h1);margin:var(--sp-3) auto 0;max-width:18ch">Let's find out where the gap really is.</h2>
+      <p class="rv" style="margin:var(--sp-6) auto 0;max-width:48ch">Five students, one tutor, a weekly test and a
+        progress note you can read on your phone. CBSE, IGCSE and IB, Grades 6 to 10, anywhere in Saudi Arabia.</p>
+      <div class="rv" style="margin-top:var(--sp-8)">
+        <span class="glow"><a class="btn btn--action" data-wa="default" href="#">
+          <svg class="btn__wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 000-.4L9.6 7.9c-.2-.4-.3-.4-.5-.4h-.4a.9.9 0 00-.6.3 2.6 2.6 0 00-.8 1.9 4.5 4.5 0 001 2.4 10.3 10.3 0 003.9 3.4c1.5.6 2 .6 2.8.5a2.3 2.3 0 001.5-1.1 1.9 1.9 0 00.1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg>
+          Book a free trial class</a></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft__top">
+      <div style="max-width:34ch">
+        <div style="font-family:var(--font-display);font-weight:700;color:#fff;font-size:1.15rem">VR Academy Global</div>
+        <p style="margin-top:var(--sp-3)">Live online CBSE, IGCSE and IB coaching for Grades 6 to 10. Five students, one tutor.</p>
+      </div>
+      <div><div style="color:#fff;font-weight:600;margin-bottom:var(--sp-3)">Saudi Arabia</div><p>Classes timed for Saudi evenings.</p></div>
+      <div><div style="color:#fff;font-weight:600;margin-bottom:var(--sp-3)">Get in touch</div><p><a data-wa="default" href="#">Message us on WhatsApp</a></p></div>
+    </div>
+    <div class="ft__fine">Independent coaching service.</div>
+  </div>
+</footer>
+
+<div class="sticky"><a class="btn btn--action" data-wa="default" href="#">
+  <svg class="btn__wa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 000-.4L9.6 7.9c-.2-.4-.3-.4-.5-.4h-.4a.9.9 0 00-.6.3 2.6 2.6 0 00-.8 1.9 4.5 4.5 0 001 2.4 10.3 10.3 0 003.9 3.4c1.5.6 2 .6 2.8.5a2.3 2.3 0 001.5-1.1 1.9 1.9 0 00.1-1.1c-.1-.1-.2-.2-.4-.3z"/></svg>
+  Book a free trial class</a></div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* WhatsApp — same number and base message as Version A, plus a "report" variant */
+  var WA_NUMBER = '919220664662';
+  var MESSAGES = {
+    "default": "Hi, I'd like to know more about the free trial class for my child.",
+    "book":    "Hi, I'd like to book a free trial class for my child.",
+    "report":  "Hi, I'd like to know more about the free trial class and the weekly progress note.",
+    "fees":    "Hi, I'd like to know more about the free trial class for my child. I had a question about the fees."
+  };
+  document.querySelectorAll('[data-wa]').forEach(function(a){
+    var msg = MESSAGES[a.getAttribute('data-wa')] || MESSAGES["default"];
+    a.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+    a.rel = 'noopener';
+  });
+
+  /* header pill */
+  var hdr = document.getElementById('hdr');
+  function onScroll(){ hdr.classList.toggle('is-stuck', window.scrollY > 24); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* one scroll sweep drives every entrance (see Version A for why not IntersectionObserver) */
+  var triggers = [];
+  function when(el, fn, off){ if (el) triggers.push({el:el, fn:fn, off:(off == null ? 40 : off)}); }
+  function sweep(){
+    var h = window.innerHeight, fired = 0;
+    for (var i = triggers.length - 1; i >= 0; i--){
+      var t = triggers[i];
+      if (t.el.getBoundingClientRect().top < h - t.off){
+        triggers.splice(i, 1);
+        (function(t, d){ setTimeout(function(){ t.fn(t.el); }, d); })(t, reduced ? 0 : Math.min(fired++, 2) * 55);
+      }
+    }
+  }
+  /* time-based throttle: runs at most every 80ms, and always once more after
+     the last scroll, so a fast flick can never leave anything un-swept */
+  var lastSweep = 0, pendingSweep = null;
+  function onScrollSweep(){
+    var now = Date.now();
+    if (now - lastSweep > 80){ lastSweep = now; sweep(); }
+    if (!pendingSweep) pendingSweep = setTimeout(function(){ pendingSweep = null; lastSweep = Date.now(); sweep(); }, 120);
+  }
+
+  /* batch meter — plays itself: 40 → 30 → 20 → 10 → 5, holds on 5, repeats.
+     Each step re-lays the visible tiles out to fill the same block: fewer
+     students means bigger tiles, centred. Tiles are positioned with transforms,
+     so every move (not only the last) is animated. Tapping a number holds it
+     there; autoplay resumes after a pause. */
+  var STOPS = [40, 30, 20, 10, 5];
+  var GAP = 0.14, BASE = 100, POP = 0.6;   /* gap as a fraction of tile size; tile's own px size; shrink-on-exit */
+  var grid = document.getElementById('meterGrid');
+  var mins = document.getElementById('meterMin'), count = document.getElementById('meterCount');
+  var stopsEl = document.getElementById('stops');
+  (function(){ var h = ''; for (var i = 0; i < 40; i++) h += '<div class="tile"><span class="tile__dot"></span></div>'; grid.innerHTML = h; })();
+  var tiles = [].slice.call(grid.children);
+  var pose = tiles.map(function(){ return {x: 0, y: 0, s: BASE, on: true}; });
+  var fill = document.createElement('span'); fill.className = 'stops__fill'; stopsEl.appendChild(fill);
+  var stopBtns = STOPS.map(function(n, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'stop'; b.textContent = n;
+    b.setAttribute('aria-label', n + ' students in the batch');
+    b.addEventListener('click', function(){ holdAt(i); });
+    stopsEl.appendChild(b);
+    return b;
+  });
+  var shown = 40, stopIdx = 0;
+
+  /* Best-fit layout: choose the column count that makes the tiles largest inside W x H,
+     centre the whole block, and centre a short last row. */
+  function planLayout(n, W, H){
+    var best = null;
+    for (var cols = 1; cols <= n; cols++){
+      var rows = Math.ceil(n / cols);
+      var s = Math.min(W / (cols + (cols - 1) * GAP), H / (rows + (rows - 1) * GAP));
+      var empty = cols * rows - n;
+      if (!best || s > best.s + 0.01 || (Math.abs(s - best.s) <= 0.01 && empty < best.empty)) best = {cols: cols, rows: rows, s: s, empty: empty};
+    }
+    var s2 = best.s, step = s2 * (1 + GAP), pos = [];
+    var y0 = (H - (best.rows * s2 + (best.rows - 1) * s2 * GAP)) / 2;
+    for (var r = 0; r < best.rows; r++){
+      var inRow = Math.min(best.cols, n - r * best.cols);
+      var x0 = (W - (inRow * s2 + (inRow - 1) * s2 * GAP)) / 2;
+      for (var c = 0; c < inRow; c++) pos.push({x: x0 + c * step, y: y0 + r * step});
+    }
+    return {s: s2, pos: pos};
+  }
+  function put(t, x, y, s){
+    t.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0) scale(' + (s / BASE).toFixed(4) + ')';
+  }
+  function shrunk(p){ var s = p.s * POP, d = (p.s - s) / 2; return {x: p.x + d, y: p.y + d, s: s}; }
+
+  /* place every tile for the current step instantly (first paint, and on resize) */
+  function settle(){
+    var W = grid.clientWidth, H = grid.clientHeight, n = STOPS[stopIdx];
+    if (!W || !H) return;
+    var L = planLayout(n, W, H);
+    grid.classList.add('is-resizing');
+    tiles.forEach(function(t, k){
+      var p = pose[k];
+      if (k < n){
+        p.x = L.pos[k].x; p.y = L.pos[k].y; p.s = L.s; p.on = true;
+        t.classList.remove('is-off'); put(t, p.x, p.y, p.s);
+      } else {
+        if (p.s === BASE){ p.x = (W - L.s) / 2; p.y = (H - L.s) / 2; p.s = L.s; }
+        p.on = false; t.classList.add('is-off');
+        var q = shrunk(p); put(t, q.x, q.y, q.s);
+      }
+    });
+    grid.classList.toggle('is-five', n === 5);
+    setTimeout(function(){ grid.classList.remove('is-resizing'); }, 60);
+  }
+
+  /* move to a new step with animation: stayers grow and re-centre, leavers fade */
+  function animateTiles(n){
+    var W = grid.clientWidth, H = grid.clientHeight;
+    if (!W || !H) return;
+    var L = planLayout(n, W, H);
+    var returning = false;
+    tiles.forEach(function(t, k){            /* pass 1: tiles coming back start small, in their new place */
+      var p = pose[k];
+      if (k < n && !p.on){
+        var d = L.s * (1 - POP) / 2;
+        t.style.transition = 'none';
+        put(t, L.pos[k].x + d, L.pos[k].y + d, L.s * POP);
+        returning = true;
+      }
+    });
+    if (returning) void grid.offsetWidth;    /* commit those start poses once */
+    tiles.forEach(function(t, k){            /* pass 2: everything moves to its final pose */
+      var p = pose[k];
+      if (k < n){
+        if (!p.on){ t.style.transition = ''; t.classList.remove('is-off'); }
+        p.x = L.pos[k].x; p.y = L.pos[k].y; p.s = L.s; p.on = true;
+        put(t, p.x, p.y, p.s);
+      } else if (p.on){
+        var q = shrunk(p);
+        t.classList.add('is-off'); put(t, q.x, q.y, q.s); p.on = false;
+      }
+    });
+    grid.classList.toggle('is-five', n === 5);
+  }
+
+  function chrome(i){
+    count.textContent = 'in a batch of ' + STOPS[i];
+    stopBtns.forEach(function(b, k){
+      b.classList.toggle('is-on', k === i);
+      b.classList.toggle('is-past', k < i);
+      b.setAttribute('aria-pressed', String(k === i));
+    });
+    fill.style.width = 'calc((100% - 32px) * ' + (i / (STOPS.length - 1)) + ')';
+  }
+  function animateMinutes(from, to){
+    if (reduced){ mins.textContent = (60 / to).toFixed(1); return; }
+    var start = performance.now();
+    (function step(now){
+      var p = Math.min(((now || performance.now()) - start) / 450, 1);
+      mins.textContent = (60 / (from + (to - from) * (1 - Math.pow(1 - p, 3)))).toFixed(1);
+      if (p < 1) requestAnimationFrame(step);
+    })();
+  }
+  function showStop(i){
+    var n = STOPS[i];
+    stopIdx = i;
+    animateTiles(n);
+    chrome(i);
+    animateMinutes(shown, n);
+    shown = n;
+  }
+  var playing = false, timerId = null, resumeId = null, seenAt = 0;
+  function inView(el){ var r = el.getBoundingClientRect(); return r.bottom > 60 && r.top < window.innerHeight - 60; }
+  function tick(){
+    if (document.hidden || !inView(grid)){ seenAt = 0; timerId = setTimeout(tick, 400); return; }
+    if (!seenAt){ seenAt = Date.now(); timerId = setTimeout(tick, 1000); return; }   /* let 40 register first */
+    var next = (stopIdx + 1) % STOPS.length;
+    showStop(next);
+    timerId = setTimeout(tick, STOPS[next] === 5 ? 3200 : 1300);
+  }
+  function startAuto(){ if (reduced || playing) return; playing = true; seenAt = 0; timerId = setTimeout(tick, 300); }
+  function holdAt(i){
+    clearTimeout(timerId); clearTimeout(resumeId); playing = false;
+    showStop(i);
+    if (!reduced) resumeId = setTimeout(startAuto, 8000);
+  }
+  /* first paint: no animation. Reduced-motion shows the final state (5) statically. */
+  stopIdx = reduced ? STOPS.length - 1 : 0;
+  shown = STOPS[stopIdx];
+  mins.textContent = (60 / shown).toFixed(1);
+  chrome(stopIdx);
+  settle();
+  if ('ResizeObserver' in window) new ResizeObserver(settle).observe(grid);
+  else window.addEventListener('resize', settle);
+
+  /* the loop: five nodes on a ring, cycling, clickable */
+  var ring = document.getElementById('ring');
+  var LABELS = ['Understand','Plan','Teach','Test','Report'];
+  var nodes = [];
+  LABELS.forEach(function(lbl, i){
+    var a = (-90 + i * 72) * Math.PI / 180;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'ring__node';
+    b.style.left = (50 + 38 * Math.cos(a)) + '%';
+    b.style.top  = (50 + 38 * Math.sin(a)) + '%';
+    b.innerHTML = '<b>0' + (i + 1) + '</b><span>' + lbl + '</span>';
+    b.setAttribute('aria-label', 'Step ' + (i + 1) + ': ' + lbl);
+    b.addEventListener('click', function(){ setStep(i, true); });
+    ring.appendChild(b); nodes.push(b);
+  });
+  var stps = [].slice.call(document.querySelectorAll('.stp'));
+  stps.forEach(function(s, i){ s.addEventListener('click', function(){ setStep(i, true); }); });
+  var arc = document.getElementById('ringArc');
+  var cur = 0, timer = null, userTook = false;
+  function setStep(i, byUser){
+    cur = i;
+    nodes.forEach(function(n, k){ n.classList.toggle('is-active', k === i); });
+    stps.forEach(function(s, k){ s.classList.toggle('is-active', k === i); });
+    arc.style.strokeDashoffset = 238.8 * (1 - (i + 1) / 5);
+    if (byUser){ userTook = true; clearInterval(timer); }
+  }
+  setStep(0);
+  function playLoop(){
+    if (reduced || userTook) return;
+    timer = setInterval(function(){ if (!userTook) setStep((cur + 1) % 5); }, 2600);
+  }
+
+  /* register */
+  document.querySelectorAll('.rv').forEach(function(el){ when(el, function(e){ e.classList.add('in'); }); });
+  document.querySelectorAll('.glow').forEach(function(g){ when(g, function(e){ e.classList.add('is-lit'); }, 120); });
+  when(document.getElementById('dx'), function(e){ setTimeout(function(){ e.classList.add('is-open'); }, reduced ? 0 : 700); }, 60);
+  when(document.getElementById('chart'), function(e){ e.classList.add('go'); }, 140);
+  startAuto();
+  when(ring, playLoop, 150);
+  when(document.getElementById('chat'), function(e){ e.classList.add('go'); }, 140);
+
+  sweep();
+  window.addEventListener('scroll', onScrollSweep, {passive:true});
+  window.addEventListener('resize', onScrollSweep, {passive:true});
+  window.addEventListener('load', sweep);
+  document.addEventListener('visibilitychange', sweep);
+})();
+</script>
+</body>
+</html>
